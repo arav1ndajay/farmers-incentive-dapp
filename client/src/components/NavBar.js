@@ -3,11 +3,19 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <div className="navbar">
-      <Link to="/">HOME</Link>
-      <Link to="/FarmerPage">FARMER</Link>
-      <Link to="/OfficialPage">GOVERNMENT OFFICIAL</Link>
-      <Link to="/PolicyMakerPage">POLICY MAKER</Link>
+    <div className="navbar" style={{ backgroundColor: "brown" }}>
+      <Link to="/" style={{ color: "white" }}>
+        HOME
+      </Link>
+      <Link to="/FarmerPage" style={{ color: "white" }}>
+        FARMER
+      </Link>
+      <Link to="/OfficialPage" style={{ color: "white" }}>
+        GOVERNMENT OFFICIAL
+      </Link>
+      <Link to="/PolicyMakerPage" style={{ color: "white" }}>
+        POLICY MAKER
+      </Link>
     </div>
   );
 };

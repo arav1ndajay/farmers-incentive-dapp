@@ -6,7 +6,7 @@ const PolicyMakerPage = () => {
     <div>
       <NavBar />
       <div className="container">
-        <div className="header">POLICY MAKER PAGE</div>
+        <div className="header">Policy Maker Page</div>
         <h4> </h4>
         <form className="add-form">
           <div className="form-control">
