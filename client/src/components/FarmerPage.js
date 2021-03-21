@@ -4,8 +4,6 @@ import "../App.css";
 import getWeb3 from "../getWeb3";
 import FarmerContract from "../contracts/FarmerContract.json";
 
-var numOfFarmers = 0;
-
 class FarmerPage extends Component {
   constructor(props) {
     super(props);
@@ -60,9 +58,6 @@ class FarmerPage extends Component {
         web3: web3,
         account: accounts[0],
       });
-      numOfFarmers = await this.state.FarmerInstance.methods
-        .farmerCount()
-        .call();
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -73,12 +68,9 @@ class FarmerPage extends Component {
   };
 
   addFarmer = async () => {
-    for (var i = 0; i < numOfFarmers; i++) {
-      const f = await this.state.FarmerInstance.methods.farmerDetails(i).call();
-      console.log(f);
-    }
     await this.state.FarmerInstance.methods
       .addFarmer(
+        this.state.account,
         this.state.name,
         this.state.placeOfResidence,
         this.state.landOwned
@@ -93,7 +85,9 @@ class FarmerPage extends Component {
     return (
       <div>
         <NavBar />
-        <h1 style={{ textAlign: "center" }}>Farmer id: {numOfFarmers}</h1>
+        <h4 style={{ textAlign: "center" }}>
+          Account address: {this.state.account}
+        </h4>
         <div className="container">
           <div className="header">Farmer Details</div>
           <form className="add-form">

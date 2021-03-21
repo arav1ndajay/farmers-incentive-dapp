@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import getWeb3 from "../getWeb3";
-import FarmerContract from "../contracts/FarmerContract.json";
+import GovContract from "../contracts/GovContract.json";
 
 var farmerDetails;
 
@@ -13,7 +13,7 @@ class OfficialPage extends Component {
       FarmerInstance: undefined,
       account: null,
       web3: null,
-      idOfFarmer: 0,
+      addressOfFarmer: 0,
       viewDetails: false,
     };
   }
@@ -33,9 +33,9 @@ class OfficialPage extends Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = FarmerContract.networks[networkId];
+      const deployedNetwork = GovContract.networks[networkId];
       const instance = new web3.eth.Contract(
-        FarmerContract.abi,
+        GovContract.abi,
         deployedNetwork && deployedNetwork.address
       );
 
@@ -55,15 +55,33 @@ class OfficialPage extends Component {
     }
   };
 
-  updateIdOfFarmer = (event) => {
-    this.setState({ idOfFarmer: event.target.value });
+  updateAddressOfFarmer = (event) => {
+    this.setState({ addressOfFarmer: event.target.value });
   };
 
   viewFarmerDetails = async () => {
-    farmerDetails = await this.state.FarmerInstance.methods
-      .farmerDetails(this.state.idOfFarmer)
-      .call();
-    this.setState({ viewDetails: true });
+    try {
+      farmerDetails = await this.state.FarmerInstance.methods
+        .getFarmerDetails(this.state.addressOfFarmer)
+        .call({ from: this.state.account });
+
+      console.log(farmerDetails);
+      this.setState({ viewDetails: true });
+    } catch (error) {
+      this.setState({ viewDetails: false });
+      alert("Invalid address, please try again!");
+      console.error(error);
+    }
+  };
+
+  setFarmerAsEligible = async () => {
+    await this.state.FarmerInstance.methods
+      .setFarmerAsEligible(this.state.addressOfFarmer)
+      .send({
+        from: this.state.account,
+        gas: 1000000,
+      });
+    window.location.reload();
   };
 
   render() {
@@ -83,12 +101,12 @@ class OfficialPage extends Component {
           </h4>
           <form className="add-form">
             <div className="form-control">
-              <label>Id of farmer</label>
+              <label>Address of farmer</label>
               <input
                 type="text"
-                value={this.state.idOfFarmer}
-                onChange={this.updateIdOfFarmer}
-                placeholder="Enter id of farmer"
+                value={this.state.addressOfFarmer}
+                onChange={this.updateAddressOfFarmer}
+                placeholder="Enter address of farmer"
               />
             </div>
             <button
@@ -98,21 +116,29 @@ class OfficialPage extends Component {
             >
               View Details
             </button>
-            <input type="submit" value="Set as eligible" className="btn" />
+            <input
+              type="submit"
+              value="Set as eligible"
+              className="btn"
+              onClick={this.setFarmerAsEligible}
+            />
           </form>
           {this.state.viewDetails === true && (
             <div>
               <h4 style={{ textAlign: "center" }}>
-                Details of farmer {this.state.idOfFarmer}
+                Details of farmer {this.state.addressOfFarmer}
               </h4>
               <div style={{ textAlign: "center" }}>
-                Name: {farmerDetails.name}
+                Name: {farmerDetails._name}
               </div>
               <div style={{ textAlign: "center" }}>
-                Land Owned: {farmerDetails.landOwned}
+                Land Owned: {farmerDetails._landOwned}
               </div>
               <div style={{ textAlign: "center" }}>
-                Place of Residence: {farmerDetails.placeOfResidence}
+                Place of Residence: {farmerDetails._placeOfResidence}
+              </div>
+              <div style={{ textAlign: "center" }}>
+                Is Eligible for Incentive: {farmerDetails.isEligible.toString()}
               </div>
             </div>
           )}
