@@ -138,7 +138,8 @@ class OfficialPage extends Component {
                 Place of Residence: {farmerDetails._placeOfResidence}
               </div>
               <div style={{ textAlign: "center" }}>
-                Is Eligible for Incentive: {farmerDetails.isEligible.toString()}
+                Is Eligible for Incentive:{" "}
+                {farmerDetails._isEligible.toString()}
               </div>
             </div>
           )}

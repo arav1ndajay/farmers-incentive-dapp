@@ -16,7 +16,7 @@ contract GovContract {
             string memory _name,
             string memory _placeOfResidence,
             uint256 _landOwned,
-            bool isEligible
+            bool _isEligible
         )
     {
         return fc.getFarmer(_address);
