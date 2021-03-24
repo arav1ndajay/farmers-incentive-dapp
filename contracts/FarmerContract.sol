@@ -1,6 +1,14 @@
-pragma solidity >=0.4.21 <0.7.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.21;
+import "./Roles.sol";
 
 contract FarmerContract {
+    Roles public rc;
+
+    constructor(address _address) public {
+        rc = Roles(_address);
+    }
+
     struct Farmer {
         string name;
         string placeOfResidence;
@@ -16,14 +24,16 @@ contract FarmerContract {
         string memory _name,
         string memory _placeOfResidence,
         uint256 _landOwned
-    ) public {
+    ) public payable {
         Farmer storage farmer = farmers[_address];
         farmer.name = _name;
         farmer.placeOfResidence = _placeOfResidence;
         farmer.landOwned = _landOwned;
         farmer.isEligible = false;
 
-        farmerAccounts.push(_address) - 1;
+        farmerAccounts.push(_address);
+
+        rc.addRole(_address, rc.farmerRoleID());
     }
 
     function getFarmers() public view returns (address[] memory) {

@@ -56,7 +56,7 @@
         },
         {
           "internalType": "bool",
-          "name": "isEligible",
+          "name": "_isEligible",
           "type": "bool"
         }
       ],
@@ -80,45 +80,42 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_address\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":true,\"inputs\":[],\"name\":\"fc\",\"outputs\":[{\"internalType\":\"contract FarmerContract\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_address\",\"type\":\"address\"}],\"name\":\"getFarmerDetails\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_placeOfResidence\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"_landOwned\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isEligible\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_address\",\"type\":\"address\"}],\"name\":\"setFarmerAsEligible\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/aravind/incentive_dapp/contracts/GovContract.sol\":\"GovContract\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/aravind/incentive_dapp/contracts/FarmerContract.sol\":{\"keccak256\":\"0x155637056bfa9461f70a5de50a10d959af1c6ee4e2f546330e5e0a50ea60ff71\",\"urls\":[\"bzz-raw://562c3238060963110631ee93ba09609dc59ec570733f6583ab05d577dfec8e05\",\"dweb:/ipfs/QmNodka74We4VER4tCMPN9Jwh6mhfMY3BKxYPAraGdM7UA\"]},\"/home/aravind/incentive_dapp/contracts/GovContract.sol\":{\"keccak256\":\"0x6c00bfd873316e472d235c9c2d2056ea936d4ce3de81768bad68c381fb5baf4d\",\"urls\":[\"bzz-raw://ebfbadfbcb5d4280f040e3051718ffffa886686bad3711f541e00006f7f42ee0\",\"dweb:/ipfs/QmYgzfMteR8hSFaUmcz5XcW6e2rJnqLsfnQxniXiGhzoNG\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b506040516106323803806106328339818101604052602081101561003357600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061059e806100946000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c806381f4be5e14610046578063a024151c14610090578063d335ccfa146100d4575b600080fd5b61004e61020f565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100d2600480360360208110156100a657600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610234565b005b610116600480360360208110156100ea57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506102ef565b60405180806020018060200185815260200184151515158152602001838103835287818151815260200191508051906020019080838360005b8381101561016a57808201518184015260208101905061014f565b50505050905090810190601f1680156101975780820380516001836020036101000a031916815260200191505b50838103825286818151815260200191508051906020019080838360005b838110156101d05780820151818401526020810190506101b5565b50505050905090810190601f1680156101fd5780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663f904cf04826040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050600060405180830381600087803b1580156102d457600080fd5b505af11580156102e8573d6000803e3d6000fd5b5050505050565b6060806000806000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663e7609c16866040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060006040518083038186803b15801561039357600080fd5b505afa1580156103a7573d6000803e3d6000fd5b505050506040513d6000823e3d601f19601f8201168201806040525060808110156103d157600080fd5b81019080805160405193929190846401000000008211156103f157600080fd5b8382019150602082018581111561040757600080fd5b825186600182028301116401000000008211171561042457600080fd5b8083526020830192505050908051906020019080838360005b8381101561045857808201518184015260208101905061043d565b50505050905090810190601f1680156104855780820380516001836020036101000a031916815260200191505b50604052602001805160405193929190846401000000008211156104a857600080fd5b838201915060208201858111156104be57600080fd5b82518660018202830111640100000000821117156104db57600080fd5b8083526020830192505050908051906020019080838360005b8381101561050f5780820151818401526020810190506104f4565b50505050905090810190601f16801561053c5780820380516001836020036101000a031916815260200191505b5060405260200180519060200190929190805190602001909291905050509350935093509350919350919356fea265627a7a723158205674a6a82482afe1ba4a4946c5e0f00f83fb3a8735b125dcc2101901c25b7eec64736f6c63430005100032",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c806381f4be5e14610046578063a024151c14610090578063d335ccfa146100d4575b600080fd5b61004e61020f565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100d2600480360360208110156100a657600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610234565b005b610116600480360360208110156100ea57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506102ef565b60405180806020018060200185815260200184151515158152602001838103835287818151815260200191508051906020019080838360005b8381101561016a57808201518184015260208101905061014f565b50505050905090810190601f1680156101975780820380516001836020036101000a031916815260200191505b50838103825286818151815260200191508051906020019080838360005b838110156101d05780820151818401526020810190506101b5565b50505050905090810190601f1680156101fd5780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663f904cf04826040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050600060405180830381600087803b1580156102d457600080fd5b505af11580156102e8573d6000803e3d6000fd5b5050505050565b6060806000806000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663e7609c16866040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060006040518083038186803b15801561039357600080fd5b505afa1580156103a7573d6000803e3d6000fd5b505050506040513d6000823e3d601f19601f8201168201806040525060808110156103d157600080fd5b81019080805160405193929190846401000000008211156103f157600080fd5b8382019150602082018581111561040757600080fd5b825186600182028301116401000000008211171561042457600080fd5b8083526020830192505050908051906020019080838360005b8381101561045857808201518184015260208101905061043d565b50505050905090810190601f1680156104855780820380516001836020036101000a031916815260200191505b50604052602001805160405193929190846401000000008211156104a857600080fd5b838201915060208201858111156104be57600080fd5b82518660018202830111640100000000821117156104db57600080fd5b8083526020830192505050908051906020019080838360005b8381101561050f5780820151818401526020810190506104f4565b50505050905090810190601f16801561053c5780820380516001836020036101000a031916815260200191505b5060405260200180519060200190929190805190602001909291905050509350935093509350919350919356fea265627a7a723158205674a6a82482afe1ba4a4946c5e0f00f83fb3a8735b125dcc2101901c25b7eec64736f6c63430005100032",
-  "sourceMap": "66:538:1:-;;;124:83;8:9:-1;5:2;;;30:1;27;20:12;5:2;124:83:1;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;124:83:1;;;;;;;;;;;;;;;;191:8;171:2;;:29;;;;;;;;;;;;;;;;;;124:83;66:538;;;;;;",
-  "deployedSourceMap": "66:538:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:538:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;93:24;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;507:95;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;507:95:1;;;;;;;;;;;;;;;;;;;:::i;:::-;;213:288;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;213:288:1;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;213:288:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;213:288:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;93:24;;;;;;;;;;;;;:::o;507:95::-;571:2;;;;;;;;;;;:14;;;586:8;571:24;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;571:24:1;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;571:24:1;;;;507:95;:::o;213:288::-;315:19;348:31;393:18;425:15;472:2;;;;;;;;;;;:12;;;485:8;472:22;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;472:22:1;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;472:22:1;;;;;;39:16:-1;36:1;17:17;2:54;472:22:1;101:4:-1;97:9;90:4;84;80:15;76:31;69:5;65:43;126:6;120:4;113:20;0:138;13:3;8;5:12;2:2;;;30:1;27;20:12;2:2;472:22:1;;;;;;;;;;;;;19:11:-1;14:3;11:20;8:2;;;44:1;41;34:12;8:2;71:11;66:3;62:21;55:28;;123:4;118:3;114:14;159:9;141:16;138:31;135:2;;;182:1;179;172:12;135:2;219:3;213:10;330:9;325:1;311:12;307:20;289:16;285:43;282:58;261:11;247:12;244:29;233:115;230:2;;;361:1;358;351:12;230:2;384:12;379:3;372:25;420:4;415:3;411:14;404:21;;0:432;;472:22:1;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;472:22:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;19:11:-1;14:3;11:20;8:2;;;44:1;41;34:12;8:2;71:11;66:3;62:21;55:28;;123:4;118:3;114:14;159:9;141:16;138:31;135:2;;;182:1;179;172:12;135:2;219:3;213:10;330:9;325:1;311:12;307:20;289:16;285:43;282:58;261:11;247:12;244:29;233:115;230:2;;;361:1;358;351:12;230:2;384:12;379:3;372:25;420:4;415:3;411:14;404:21;;0:432;;472:22:1;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;472:22:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;465:29;;;;;;;;213:288;;;;;:::o",
-  "source": "pragma solidity >=0.4.21 <0.7.0;\n\nimport \"./FarmerContract.sol\";\n\ncontract GovContract {\n    FarmerContract public fc;\n\n    constructor(address _address) public {\n        fc = FarmerContract(_address);\n    }\n\n    function getFarmerDetails(address _address)\n        public\n        view\n        returns (\n            string memory _name,\n            string memory _placeOfResidence,\n            uint256 _landOwned,\n            bool isEligible\n        )\n    {\n        return fc.getFarmer(_address);\n    }\n\n    function setFarmerAsEligible(address _address) public {\n        fc.setEligible(_address);\n    }\n}\n",
-  "sourcePath": "/home/aravind/incentive_dapp/contracts/GovContract.sol",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_address\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":true,\"inputs\":[],\"name\":\"fc\",\"outputs\":[{\"internalType\":\"contract FarmerContract\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_address\",\"type\":\"address\"}],\"name\":\"getFarmerDetails\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_placeOfResidence\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"_landOwned\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_isEligible\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_address\",\"type\":\"address\"}],\"name\":\"setFarmerAsEligible\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/vaishakh/Desktop/Lectures/CS229/Project/farmers-incentive-dapp/contracts/GovContract.sol\":\"GovContract\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/vaishakh/Desktop/Lectures/CS229/Project/farmers-incentive-dapp/contracts/FarmerContract.sol\":{\"keccak256\":\"0xc9df8c002668d3bcc2195213741bf884f985ee0553450062476b540a639fa353\",\"urls\":[\"bzz-raw://0554fa2541689d139aee5aab4fa85a18ff0207683d5abdca4b17c0722cc510d8\",\"dweb:/ipfs/QmeKJLcTPkHx6fxz5bALdkXQLfWXa66d4KHxTF2BcGqZrv\"]},\"/home/vaishakh/Desktop/Lectures/CS229/Project/farmers-incentive-dapp/contracts/GovContract.sol\":{\"keccak256\":\"0x46cf3785190e94bb56583b947ee8133001d701541c7b5d1d529c0ce4df11f74e\",\"urls\":[\"bzz-raw://c30c818a8735349593881d0d66b6b13d1d142e44860dfffcf74acf78c3c61279\",\"dweb:/ipfs/QmNP1Vc44mDar5uhBv8AYahhCMpYzAR8XSSCgPorwAcv41\"]},\"/home/vaishakh/Desktop/Lectures/CS229/Project/farmers-incentive-dapp/contracts/Roles.sol\":{\"keccak256\":\"0xbdb83a81d7d7d8a7268374fd16962be8e84dab3ae250382976a2a677c0805080\",\"urls\":[\"bzz-raw://90c884a0f8480615e374cffcab4fcccf73bbebc083cafe6b23c55ad994f632bf\",\"dweb:/ipfs/QmVBHfwmGeDS4HDVkA4VXZdrexUSBfrwEjg4sCKNgRpLS8\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516106323803806106328339818101604052602081101561003357600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061059e806100946000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c806381f4be5e14610046578063a024151c14610090578063d335ccfa146100d4575b600080fd5b61004e61020f565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100d2600480360360208110156100a657600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610234565b005b610116600480360360208110156100ea57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506102ef565b60405180806020018060200185815260200184151515158152602001838103835287818151815260200191508051906020019080838360005b8381101561016a57808201518184015260208101905061014f565b50505050905090810190601f1680156101975780820380516001836020036101000a031916815260200191505b50838103825286818151815260200191508051906020019080838360005b838110156101d05780820151818401526020810190506101b5565b50505050905090810190601f1680156101fd5780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663f904cf04826040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050600060405180830381600087803b1580156102d457600080fd5b505af11580156102e8573d6000803e3d6000fd5b5050505050565b6060806000806000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663e7609c16866040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060006040518083038186803b15801561039357600080fd5b505afa1580156103a7573d6000803e3d6000fd5b505050506040513d6000823e3d601f19601f8201168201806040525060808110156103d157600080fd5b81019080805160405193929190846401000000008211156103f157600080fd5b8382019150602082018581111561040757600080fd5b825186600182028301116401000000008211171561042457600080fd5b8083526020830192505050908051906020019080838360005b8381101561045857808201518184015260208101905061043d565b50505050905090810190601f1680156104855780820380516001836020036101000a031916815260200191505b50604052602001805160405193929190846401000000008211156104a857600080fd5b838201915060208201858111156104be57600080fd5b82518660018202830111640100000000821117156104db57600080fd5b8083526020830192505050908051906020019080838360005b8381101561050f5780820151818401526020810190506104f4565b50505050905090810190601f16801561053c5780820380516001836020036101000a031916815260200191505b5060405260200180519060200190929190805190602001909291905050509350935093509350919350919356fea265627a7a723158209110a772f1ab8e27653b44a2cf279ae8ab909791dec9c0aee16ffc3bc687db0f64736f6c63430005100032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c806381f4be5e14610046578063a024151c14610090578063d335ccfa146100d4575b600080fd5b61004e61020f565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100d2600480360360208110156100a657600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610234565b005b610116600480360360208110156100ea57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506102ef565b60405180806020018060200185815260200184151515158152602001838103835287818151815260200191508051906020019080838360005b8381101561016a57808201518184015260208101905061014f565b50505050905090810190601f1680156101975780820380516001836020036101000a031916815260200191505b50838103825286818151815260200191508051906020019080838360005b838110156101d05780820151818401526020810190506101b5565b50505050905090810190601f1680156101fd5780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663f904cf04826040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050600060405180830381600087803b1580156102d457600080fd5b505af11580156102e8573d6000803e3d6000fd5b5050505050565b6060806000806000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663e7609c16866040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060006040518083038186803b15801561039357600080fd5b505afa1580156103a7573d6000803e3d6000fd5b505050506040513d6000823e3d601f19601f8201168201806040525060808110156103d157600080fd5b81019080805160405193929190846401000000008211156103f157600080fd5b8382019150602082018581111561040757600080fd5b825186600182028301116401000000008211171561042457600080fd5b8083526020830192505050908051906020019080838360005b8381101561045857808201518184015260208101905061043d565b50505050905090810190601f1680156104855780820380516001836020036101000a031916815260200191505b50604052602001805160405193929190846401000000008211156104a857600080fd5b838201915060208201858111156104be57600080fd5b82518660018202830111640100000000821117156104db57600080fd5b8083526020830192505050908051906020019080838360005b8381101561050f5780820151818401526020810190506104f4565b50505050905090810190601f16801561053c5780820380516001836020036101000a031916815260200191505b5060405260200180519060200190929190805190602001909291905050509350935093509350919350919356fea265627a7a723158209110a772f1ab8e27653b44a2cf279ae8ab909791dec9c0aee16ffc3bc687db0f64736f6c63430005100032",
+  "sourceMap": "95:539:1:-;;;153:83;8:9:-1;5:2;;;30:1;27;20:12;5:2;153:83:1;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;153:83:1;;;;;;;;;;;;;;;;220:8;200:2;;:29;;;;;;;;;;;;;;;;;;153:83;95:539;;;;;;",
+  "deployedSourceMap": "95:539:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;95:539:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;122:24;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;537:95;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;537:95:1;;;;;;;;;;;;;;;;;;;:::i;:::-;;242:289;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;242:289:1;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;242:289:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;242:289:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;122:24;;;;;;;;;;;;;:::o;537:95::-;601:2;;;;;;;;;;;:14;;;616:8;601:24;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;601:24:1;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;601:24:1;;;;537:95;:::o;242:289::-;344:19;377:31;422:18;454:16;502:2;;;;;;;;;;;:12;;;515:8;502:22;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;502:22:1;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;502:22:1;;;;;;39:16:-1;36:1;17:17;2:54;502:22:1;101:4:-1;97:9;90:4;84;80:15;76:31;69:5;65:43;126:6;120:4;113:20;0:138;13:3;8;5:12;2:2;;;30:1;27;20:12;2:2;502:22:1;;;;;;;;;;;;;19:11:-1;14:3;11:20;8:2;;;44:1;41;34:12;8:2;71:11;66:3;62:21;55:28;;123:4;118:3;114:14;159:9;141:16;138:31;135:2;;;182:1;179;172:12;135:2;219:3;213:10;330:9;325:1;311:12;307:20;289:16;285:43;282:58;261:11;247:12;244:29;233:115;230:2;;;361:1;358;351:12;230:2;384:12;379:3;372:25;420:4;415:3;411:14;404:21;;0:432;;502:22:1;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;502:22:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;19:11:-1;14:3;11:20;8:2;;;44:1;41;34:12;8:2;71:11;66:3;62:21;55:28;;123:4;118:3;114:14;159:9;141:16;138:31;135:2;;;182:1;179;172:12;135:2;219:3;213:10;330:9;325:1;311:12;307:20;289:16;285:43;282:58;261:11;247:12;244:29;233:115;230:2;;;361:1;358;351:12;230:2;384:12;379:3;372:25;420:4;415:3;411:14;404:21;;0:432;;502:22:1;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;502:22:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;495:29;;;;;;;;242:289;;;;;:::o",
+  "source": "// SPDX-License-Identifier: GPL-3.0\npragma solidity >=0.4.21;\n\nimport \"./FarmerContract.sol\";\n\ncontract GovContract {\n    FarmerContract public fc;\n\n    constructor(address _address) public {\n        fc = FarmerContract(_address);\n    }\n\n    function getFarmerDetails(address _address)\n        public\n        view\n        returns (\n            string memory _name,\n            string memory _placeOfResidence,\n            uint256 _landOwned,\n            bool _isEligible\n        )\n    {\n        return fc.getFarmer(_address);\n    }\n\n    function setFarmerAsEligible(address _address) public {\n        fc.setEligible(_address);\n    }\n}\n",
+  "sourcePath": "/home/vaishakh/Desktop/Lectures/CS229/Project/farmers-incentive-dapp/contracts/GovContract.sol",
   "ast": {
-    "absolutePath": "/home/aravind/incentive_dapp/contracts/GovContract.sol",
+    "absolutePath": "/home/vaishakh/Desktop/Lectures/CS229/Project/farmers-incentive-dapp/contracts/GovContract.sol",
     "exportedSymbols": {
       "GovContract": [
-        180
+        202
       ]
     },
-    "id": 181,
+    "id": 203,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 133,
+        "id": 155,
         "literals": [
           "solidity",
           ">=",
           "0.4",
-          ".21",
-          "<",
-          "0.7",
-          ".0"
+          ".21"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:32:1"
+        "src": "36:25:1"
       },
       {
-        "absolutePath": "/home/aravind/incentive_dapp/contracts/FarmerContract.sol",
+        "absolutePath": "/home/vaishakh/Desktop/Lectures/CS229/Project/farmers-incentive-dapp/contracts/FarmerContract.sol",
         "file": "./FarmerContract.sol",
-        "id": 134,
+        "id": 156,
         "nodeType": "ImportDirective",
-        "scope": 181,
-        "sourceUnit": 132,
-        "src": "34:30:1",
+        "scope": 203,
+        "sourceUnit": 154,
+        "src": "63:30:1",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -128,35 +125,35 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 180,
+        "id": 202,
         "linearizedBaseContracts": [
-          180
+          202
         ],
         "name": "GovContract",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 136,
+            "id": 158,
             "name": "fc",
             "nodeType": "VariableDeclaration",
-            "scope": 180,
-            "src": "93:24:1",
+            "scope": 202,
+            "src": "122:24:1",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_FarmerContract_$131",
+              "typeIdentifier": "t_contract$_FarmerContract_$153",
               "typeString": "contract FarmerContract"
             },
             "typeName": {
               "contractScope": null,
-              "id": 135,
+              "id": 157,
               "name": "FarmerContract",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 131,
-              "src": "93:14:1",
+              "referencedDeclaration": 153,
+              "src": "122:14:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_FarmerContract_$131",
+                "typeIdentifier": "t_contract$_FarmerContract_$153",
                 "typeString": "contract FarmerContract"
               }
             },
@@ -165,28 +162,28 @@
           },
           {
             "body": {
-              "id": 147,
+              "id": 169,
               "nodeType": "Block",
-              "src": "161:46:1",
+              "src": "190:46:1",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 145,
+                    "id": 167,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 141,
+                      "id": 163,
                       "name": "fc",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 136,
-                      "src": "171:2:1",
+                      "referencedDeclaration": 158,
+                      "src": "200:2:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_FarmerContract_$131",
+                        "typeIdentifier": "t_contract$_FarmerContract_$153",
                         "typeString": "contract FarmerContract"
                       }
                     },
@@ -197,12 +194,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 143,
+                          "id": 165,
                           "name": "_address",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 138,
-                          "src": "191:8:1",
+                          "referencedDeclaration": 160,
+                          "src": "220:8:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -216,18 +213,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 142,
+                        "id": 164,
                         "name": "FarmerContract",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 131,
-                        "src": "176:14:1",
+                        "referencedDeclaration": 153,
+                        "src": "205:14:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_FarmerContract_$131_$",
+                          "typeIdentifier": "t_type$_t_contract$_FarmerContract_$153_$",
                           "typeString": "type(contract FarmerContract)"
                         }
                       },
-                      "id": 144,
+                      "id": 166,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -235,42 +232,42 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "176:24:1",
+                      "src": "205:24:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_FarmerContract_$131",
+                        "typeIdentifier": "t_contract$_FarmerContract_$153",
                         "typeString": "contract FarmerContract"
                       }
                     },
-                    "src": "171:29:1",
+                    "src": "200:29:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_FarmerContract_$131",
+                      "typeIdentifier": "t_contract$_FarmerContract_$153",
                       "typeString": "contract FarmerContract"
                     }
                   },
-                  "id": 146,
+                  "id": 168,
                   "nodeType": "ExpressionStatement",
-                  "src": "171:29:1"
+                  "src": "200:29:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 148,
+            "id": 170,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 139,
+              "id": 161,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 138,
+                  "id": 160,
                   "name": "_address",
                   "nodeType": "VariableDeclaration",
-                  "scope": 148,
-                  "src": "136:16:1",
+                  "scope": 170,
+                  "src": "165:16:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -278,10 +275,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 137,
+                    "id": 159,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "136:7:1",
+                    "src": "165:7:1",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -292,25 +289,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "135:18:1"
+              "src": "164:18:1"
             },
             "returnParameters": {
-              "id": 140,
+              "id": 162,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "161:0:1"
+              "src": "190:0:1"
             },
-            "scope": 180,
-            "src": "124:83:1",
+            "scope": 202,
+            "src": "153:83:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 166,
+              "id": 188,
               "nodeType": "Block",
-              "src": "455:46:1",
+              "src": "485:46:1",
               "statements": [
                 {
                   "expression": {
@@ -318,12 +315,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 163,
+                        "id": 185,
                         "name": "_address",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 150,
-                        "src": "485:8:1",
+                        "referencedDeclaration": 172,
+                        "src": "515:8:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -339,32 +336,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 161,
+                        "id": 183,
                         "name": "fc",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 136,
-                        "src": "472:2:1",
+                        "referencedDeclaration": 158,
+                        "src": "502:2:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_FarmerContract_$131",
+                          "typeIdentifier": "t_contract$_FarmerContract_$153",
                           "typeString": "contract FarmerContract"
                         }
                       },
-                      "id": 162,
+                      "id": 184,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "getFarmer",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 108,
-                      "src": "472:12:1",
+                      "referencedDeclaration": 130,
+                      "src": "502:12:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_string_memory_ptr_$_t_string_memory_ptr_$_t_uint256_$_t_bool_$",
                         "typeString": "function (address) view external returns (string memory,string memory,uint256,bool)"
                       }
                     },
-                    "id": 164,
+                    "id": 186,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -372,37 +369,37 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "472:22:1",
+                    "src": "502:22:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$_t_string_memory_ptr_$_t_string_memory_ptr_$_t_uint256_$_t_bool_$",
                       "typeString": "tuple(string memory,string memory,uint256,bool)"
                     }
                   },
-                  "functionReturnParameters": 160,
-                  "id": 165,
+                  "functionReturnParameters": 182,
+                  "id": 187,
                   "nodeType": "Return",
-                  "src": "465:29:1"
+                  "src": "495:29:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 167,
+            "id": 189,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getFarmerDetails",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 151,
+              "id": 173,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 150,
+                  "id": 172,
                   "name": "_address",
                   "nodeType": "VariableDeclaration",
-                  "scope": 167,
-                  "src": "239:16:1",
+                  "scope": 189,
+                  "src": "268:16:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -410,10 +407,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 149,
+                    "id": 171,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "239:7:1",
+                    "src": "268:7:1",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -424,19 +421,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "238:18:1"
+              "src": "267:18:1"
             },
             "returnParameters": {
-              "id": 160,
+              "id": 182,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 153,
+                  "id": 175,
                   "name": "_name",
                   "nodeType": "VariableDeclaration",
-                  "scope": 167,
-                  "src": "315:19:1",
+                  "scope": 189,
+                  "src": "344:19:1",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -444,10 +441,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 152,
+                    "id": 174,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "315:6:1",
+                    "src": "344:6:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -458,11 +455,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 155,
+                  "id": 177,
                   "name": "_placeOfResidence",
                   "nodeType": "VariableDeclaration",
-                  "scope": 167,
-                  "src": "348:31:1",
+                  "scope": 189,
+                  "src": "377:31:1",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -470,10 +467,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 154,
+                    "id": 176,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "348:6:1",
+                    "src": "377:6:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -484,11 +481,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 157,
+                  "id": 179,
                   "name": "_landOwned",
                   "nodeType": "VariableDeclaration",
-                  "scope": 167,
-                  "src": "393:18:1",
+                  "scope": 189,
+                  "src": "422:18:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -496,10 +493,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 156,
+                    "id": 178,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "393:7:1",
+                    "src": "422:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -510,11 +507,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 159,
-                  "name": "isEligible",
+                  "id": 181,
+                  "name": "_isEligible",
                   "nodeType": "VariableDeclaration",
-                  "scope": 167,
-                  "src": "425:15:1",
+                  "scope": 189,
+                  "src": "454:16:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -522,10 +519,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 158,
+                    "id": 180,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "425:4:1",
+                    "src": "454:4:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -535,19 +532,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "301:149:1"
+              "src": "330:150:1"
             },
-            "scope": 180,
-            "src": "213:288:1",
+            "scope": 202,
+            "src": "242:289:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 178,
+              "id": 200,
               "nodeType": "Block",
-              "src": "561:41:1",
+              "src": "591:41:1",
               "statements": [
                 {
                   "expression": {
@@ -555,12 +552,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 175,
+                        "id": 197,
                         "name": "_address",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 169,
-                        "src": "586:8:1",
+                        "referencedDeclaration": 191,
+                        "src": "616:8:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -576,32 +573,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 172,
+                        "id": 194,
                         "name": "fc",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 136,
-                        "src": "571:2:1",
+                        "referencedDeclaration": 158,
+                        "src": "601:2:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_FarmerContract_$131",
+                          "typeIdentifier": "t_contract$_FarmerContract_$153",
                           "typeString": "contract FarmerContract"
                         }
                       },
-                      "id": 174,
+                      "id": 196,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "setEligible",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 130,
-                      "src": "571:14:1",
+                      "referencedDeclaration": 152,
+                      "src": "601:14:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address) external"
                       }
                     },
-                    "id": 176,
+                    "id": 198,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -609,36 +606,36 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "571:24:1",
+                    "src": "601:24:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 177,
+                  "id": 199,
                   "nodeType": "ExpressionStatement",
-                  "src": "571:24:1"
+                  "src": "601:24:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 179,
+            "id": 201,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "setFarmerAsEligible",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 170,
+              "id": 192,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 169,
+                  "id": 191,
                   "name": "_address",
                   "nodeType": "VariableDeclaration",
-                  "scope": 179,
-                  "src": "536:16:1",
+                  "scope": 201,
+                  "src": "566:16:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -646,10 +643,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 168,
+                    "id": 190,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "536:7:1",
+                    "src": "566:7:1",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -660,33 +657,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "535:18:1"
+              "src": "565:18:1"
             },
             "returnParameters": {
-              "id": 171,
+              "id": 193,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "561:0:1"
+              "src": "591:0:1"
             },
-            "scope": 180,
-            "src": "507:95:1",
+            "scope": 202,
+            "src": "537:95:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 181,
-        "src": "66:538:1"
+        "scope": 203,
+        "src": "95:539:1"
       }
     ],
-    "src": "0:605:1"
+    "src": "36:599:1"
   },
   "legacyAST": {
     "attributes": {
-      "absolutePath": "/home/aravind/incentive_dapp/contracts/GovContract.sol",
+      "absolutePath": "/home/vaishakh/Desktop/Lectures/CS229/Project/farmers-incentive-dapp/contracts/GovContract.sol",
       "exportedSymbols": {
         "GovContract": [
-          180
+          202
         ]
       }
     },
@@ -697,30 +694,27 @@
             "solidity",
             ">=",
             "0.4",
-            ".21",
-            "<",
-            "0.7",
-            ".0"
+            ".21"
           ]
         },
-        "id": 133,
+        "id": 155,
         "name": "PragmaDirective",
-        "src": "0:32:1"
+        "src": "36:25:1"
       },
       {
         "attributes": {
-          "SourceUnit": 132,
-          "absolutePath": "/home/aravind/incentive_dapp/contracts/FarmerContract.sol",
+          "SourceUnit": 154,
+          "absolutePath": "/home/vaishakh/Desktop/Lectures/CS229/Project/farmers-incentive-dapp/contracts/FarmerContract.sol",
           "file": "./FarmerContract.sol",
-          "scope": 181,
+          "scope": 203,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 134,
+        "id": 156,
         "name": "ImportDirective",
-        "src": "34:30:1"
+        "src": "63:30:1"
       },
       {
         "attributes": {
@@ -734,17 +728,17 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            180
+            202
           ],
           "name": "GovContract",
-          "scope": 181
+          "scope": 203
         },
         "children": [
           {
             "attributes": {
               "constant": false,
               "name": "fc",
-              "scope": 180,
+              "scope": 202,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "contract FarmerContract",
@@ -756,17 +750,17 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "FarmerContract",
-                  "referencedDeclaration": 131,
+                  "referencedDeclaration": 153,
                   "type": "contract FarmerContract"
                 },
-                "id": 135,
+                "id": 157,
                 "name": "UserDefinedTypeName",
-                "src": "93:14:1"
+                "src": "122:14:1"
               }
             ],
-            "id": 136,
+            "id": 158,
             "name": "VariableDeclaration",
-            "src": "93:24:1"
+            "src": "122:24:1"
           },
           {
             "attributes": {
@@ -778,7 +772,7 @@
                 null
               ],
               "name": "",
-              "scope": 180,
+              "scope": 202,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -790,7 +784,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_address",
-                      "scope": 148,
+                      "scope": 170,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -804,19 +798,19 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 137,
+                        "id": 159,
                         "name": "ElementaryTypeName",
-                        "src": "136:7:1"
+                        "src": "165:7:1"
                       }
                     ],
-                    "id": 138,
+                    "id": 160,
                     "name": "VariableDeclaration",
-                    "src": "136:16:1"
+                    "src": "165:16:1"
                   }
                 ],
-                "id": 139,
+                "id": 161,
                 "name": "ParameterList",
-                "src": "135:18:1"
+                "src": "164:18:1"
               },
               {
                 "attributes": {
@@ -825,9 +819,9 @@
                   ]
                 },
                 "children": [],
-                "id": 140,
+                "id": 162,
                 "name": "ParameterList",
-                "src": "161:0:1"
+                "src": "190:0:1"
               },
               {
                 "children": [
@@ -850,13 +844,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 136,
+                              "referencedDeclaration": 158,
                               "type": "contract FarmerContract",
                               "value": "fc"
                             },
-                            "id": 141,
+                            "id": 163,
                             "name": "Identifier",
-                            "src": "171:2:1"
+                            "src": "200:2:1"
                           },
                           {
                             "attributes": {
@@ -884,13 +878,13 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 131,
+                                  "referencedDeclaration": 153,
                                   "type": "type(contract FarmerContract)",
                                   "value": "FarmerContract"
                                 },
-                                "id": 142,
+                                "id": 164,
                                 "name": "Identifier",
-                                "src": "176:14:1"
+                                "src": "205:14:1"
                               },
                               {
                                 "attributes": {
@@ -898,38 +892,38 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 138,
+                                  "referencedDeclaration": 160,
                                   "type": "address",
                                   "value": "_address"
                                 },
-                                "id": 143,
+                                "id": 165,
                                 "name": "Identifier",
-                                "src": "191:8:1"
+                                "src": "220:8:1"
                               }
                             ],
-                            "id": 144,
+                            "id": 166,
                             "name": "FunctionCall",
-                            "src": "176:24:1"
+                            "src": "205:24:1"
                           }
                         ],
-                        "id": 145,
+                        "id": 167,
                         "name": "Assignment",
-                        "src": "171:29:1"
+                        "src": "200:29:1"
                       }
                     ],
-                    "id": 146,
+                    "id": 168,
                     "name": "ExpressionStatement",
-                    "src": "171:29:1"
+                    "src": "200:29:1"
                   }
                 ],
-                "id": 147,
+                "id": 169,
                 "name": "Block",
-                "src": "161:46:1"
+                "src": "190:46:1"
               }
             ],
-            "id": 148,
+            "id": 170,
             "name": "FunctionDefinition",
-            "src": "124:83:1"
+            "src": "153:83:1"
           },
           {
             "attributes": {
@@ -941,7 +935,7 @@
                 null
               ],
               "name": "getFarmerDetails",
-              "scope": 180,
+              "scope": 202,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "public"
@@ -953,7 +947,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_address",
-                      "scope": 167,
+                      "scope": 189,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -967,19 +961,19 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 149,
+                        "id": 171,
                         "name": "ElementaryTypeName",
-                        "src": "239:7:1"
+                        "src": "268:7:1"
                       }
                     ],
-                    "id": 150,
+                    "id": 172,
                     "name": "VariableDeclaration",
-                    "src": "239:16:1"
+                    "src": "268:16:1"
                   }
                 ],
-                "id": 151,
+                "id": 173,
                 "name": "ParameterList",
-                "src": "238:18:1"
+                "src": "267:18:1"
               },
               {
                 "children": [
@@ -987,7 +981,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_name",
-                      "scope": 167,
+                      "scope": 189,
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "type": "string",
@@ -1000,20 +994,20 @@
                           "name": "string",
                           "type": "string"
                         },
-                        "id": 152,
+                        "id": 174,
                         "name": "ElementaryTypeName",
-                        "src": "315:6:1"
+                        "src": "344:6:1"
                       }
                     ],
-                    "id": 153,
+                    "id": 175,
                     "name": "VariableDeclaration",
-                    "src": "315:19:1"
+                    "src": "344:19:1"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "_placeOfResidence",
-                      "scope": 167,
+                      "scope": 189,
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "type": "string",
@@ -1026,20 +1020,20 @@
                           "name": "string",
                           "type": "string"
                         },
-                        "id": 154,
+                        "id": 176,
                         "name": "ElementaryTypeName",
-                        "src": "348:6:1"
+                        "src": "377:6:1"
                       }
                     ],
-                    "id": 155,
+                    "id": 177,
                     "name": "VariableDeclaration",
-                    "src": "348:31:1"
+                    "src": "377:31:1"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "_landOwned",
-                      "scope": 167,
+                      "scope": 189,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1052,20 +1046,20 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 156,
+                        "id": 178,
                         "name": "ElementaryTypeName",
-                        "src": "393:7:1"
+                        "src": "422:7:1"
                       }
                     ],
-                    "id": 157,
+                    "id": 179,
                     "name": "VariableDeclaration",
-                    "src": "393:18:1"
+                    "src": "422:18:1"
                   },
                   {
                     "attributes": {
                       "constant": false,
-                      "name": "isEligible",
-                      "scope": 167,
+                      "name": "_isEligible",
+                      "scope": 189,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "bool",
@@ -1078,25 +1072,25 @@
                           "name": "bool",
                           "type": "bool"
                         },
-                        "id": 158,
+                        "id": 180,
                         "name": "ElementaryTypeName",
-                        "src": "425:4:1"
+                        "src": "454:4:1"
                       }
                     ],
-                    "id": 159,
+                    "id": 181,
                     "name": "VariableDeclaration",
-                    "src": "425:15:1"
+                    "src": "454:16:1"
                   }
                 ],
-                "id": 160,
+                "id": 182,
                 "name": "ParameterList",
-                "src": "301:149:1"
+                "src": "330:150:1"
               },
               {
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 160
+                      "functionReturnParameters": 182
                     },
                     "children": [
                       {
@@ -1127,7 +1121,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "getFarmer",
-                              "referencedDeclaration": 108,
+                              "referencedDeclaration": 130,
                               "type": "function (address) view external returns (string memory,string memory,uint256,bool)"
                             },
                             "children": [
@@ -1137,18 +1131,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 136,
+                                  "referencedDeclaration": 158,
                                   "type": "contract FarmerContract",
                                   "value": "fc"
                                 },
-                                "id": 161,
+                                "id": 183,
                                 "name": "Identifier",
-                                "src": "472:2:1"
+                                "src": "502:2:1"
                               }
                             ],
-                            "id": 162,
+                            "id": 184,
                             "name": "MemberAccess",
-                            "src": "472:12:1"
+                            "src": "502:12:1"
                           },
                           {
                             "attributes": {
@@ -1156,33 +1150,33 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 150,
+                              "referencedDeclaration": 172,
                               "type": "address",
                               "value": "_address"
                             },
-                            "id": 163,
+                            "id": 185,
                             "name": "Identifier",
-                            "src": "485:8:1"
+                            "src": "515:8:1"
                           }
                         ],
-                        "id": 164,
+                        "id": 186,
                         "name": "FunctionCall",
-                        "src": "472:22:1"
+                        "src": "502:22:1"
                       }
                     ],
-                    "id": 165,
+                    "id": 187,
                     "name": "Return",
-                    "src": "465:29:1"
+                    "src": "495:29:1"
                   }
                 ],
-                "id": 166,
+                "id": 188,
                 "name": "Block",
-                "src": "455:46:1"
+                "src": "485:46:1"
               }
             ],
-            "id": 167,
+            "id": 189,
             "name": "FunctionDefinition",
-            "src": "213:288:1"
+            "src": "242:289:1"
           },
           {
             "attributes": {
@@ -1194,7 +1188,7 @@
                 null
               ],
               "name": "setFarmerAsEligible",
-              "scope": 180,
+              "scope": 202,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -1206,7 +1200,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_address",
-                      "scope": 179,
+                      "scope": 201,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -1220,19 +1214,19 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 168,
+                        "id": 190,
                         "name": "ElementaryTypeName",
-                        "src": "536:7:1"
+                        "src": "566:7:1"
                       }
                     ],
-                    "id": 169,
+                    "id": 191,
                     "name": "VariableDeclaration",
-                    "src": "536:16:1"
+                    "src": "566:16:1"
                   }
                 ],
-                "id": 170,
+                "id": 192,
                 "name": "ParameterList",
-                "src": "535:18:1"
+                "src": "565:18:1"
               },
               {
                 "attributes": {
@@ -1241,9 +1235,9 @@
                   ]
                 },
                 "children": [],
-                "id": 171,
+                "id": 193,
                 "name": "ParameterList",
-                "src": "561:0:1"
+                "src": "591:0:1"
               },
               {
                 "children": [
@@ -1277,7 +1271,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "setEligible",
-                              "referencedDeclaration": 130,
+                              "referencedDeclaration": 152,
                               "type": "function (address) external"
                             },
                             "children": [
@@ -1287,18 +1281,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 136,
+                                  "referencedDeclaration": 158,
                                   "type": "contract FarmerContract",
                                   "value": "fc"
                                 },
-                                "id": 172,
+                                "id": 194,
                                 "name": "Identifier",
-                                "src": "571:2:1"
+                                "src": "601:2:1"
                               }
                             ],
-                            "id": 174,
+                            "id": 196,
                             "name": "MemberAccess",
-                            "src": "571:14:1"
+                            "src": "601:14:1"
                           },
                           {
                             "attributes": {
@@ -1306,43 +1300,43 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 169,
+                              "referencedDeclaration": 191,
                               "type": "address",
                               "value": "_address"
                             },
-                            "id": 175,
+                            "id": 197,
                             "name": "Identifier",
-                            "src": "586:8:1"
+                            "src": "616:8:1"
                           }
                         ],
-                        "id": 176,
+                        "id": 198,
                         "name": "FunctionCall",
-                        "src": "571:24:1"
+                        "src": "601:24:1"
                       }
                     ],
-                    "id": 177,
+                    "id": 199,
                     "name": "ExpressionStatement",
-                    "src": "571:24:1"
+                    "src": "601:24:1"
                   }
                 ],
-                "id": 178,
+                "id": 200,
                 "name": "Block",
-                "src": "561:41:1"
+                "src": "591:41:1"
               }
             ],
-            "id": 179,
+            "id": 201,
             "name": "FunctionDefinition",
-            "src": "507:95:1"
+            "src": "537:95:1"
           }
         ],
-        "id": 180,
+        "id": 202,
         "name": "ContractDefinition",
-        "src": "66:538:1"
+        "src": "95:539:1"
       }
     ],
-    "id": 181,
+    "id": 203,
     "name": "SourceUnit",
-    "src": "0:605:1"
+    "src": "36:599:1"
   },
   "compiler": {
     "name": "solc",
@@ -1354,10 +1348,16 @@
       "links": {},
       "address": "0x07Daf5672a0f338FCbf6B223c71a25e4E073fE9F",
       "transactionHash": "0xafe41a8b8a7646a146d22fb32d396d6f775246d69d64c84b561e7fcf2ac3588c"
+    },
+    "1616586879026": {
+      "events": {},
+      "links": {},
+      "address": "0x716958eae22a7dBfF1822cD727c09f70f5fe35c3",
+      "transactionHash": "0x927170a9714d5a9679941d6253ce92f2c8521664f908643901a72c205357cc93"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-03-21T16:47:36.585Z",
+  "updatedAt": "2021-03-24T12:00:38.573Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
