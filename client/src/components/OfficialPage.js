@@ -135,7 +135,7 @@ class OfficialPage extends Component {
                 Land Owned: {farmerDetails._landOwned}
               </div>
               <div style={{ textAlign: "center" }}>
-                Place of Residence: {farmerDetails._placeOfResidence}
+                Place of Residence: {farmerDetails._stateOfResidence}
               </div>
               <div style={{ textAlign: "center" }}>
                 Is Eligible for Incentive:{" "}

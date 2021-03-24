@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.4.21;
 
 import "./FarmerContract.sol";
@@ -15,7 +14,8 @@ contract GovContract {
         view
         returns (
             string memory _name,
-            string memory _placeOfResidence,
+            string memory _stateOfResidence,
+            string memory _gender,
             uint256 _landOwned,
             bool _isEligible
         )
