@@ -5,7 +5,7 @@ pragma solidity >=0.4.21;
 contract Roles {
     uint256 public constant farmerRoleID = 1;
     uint256 public constant governmentOfficialRoleID = 2;
-
+    uint256 public constant policyMakerRoleID = 3;
     struct Role {
         uint256 roleID;
         bool roleSet;

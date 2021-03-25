@@ -4,6 +4,8 @@ import "../App.css";
 import getWeb3 from "../getWeb3";
 import FarmerContract from "../contracts/FarmerContract.json";
 
+var policyDetails;
+
 class FarmerPage extends Component {
   constructor(props) {
     super(props);
@@ -13,8 +15,10 @@ class FarmerPage extends Component {
       account: null,
       web3: null,
       name: "",
-      placeOfResidence: "",
+      stateOfResidence: "",
+      gender: "",
       landOwned: 0,
+      isEligible: false,
     };
   }
 
@@ -22,12 +26,16 @@ class FarmerPage extends Component {
     this.setState({ name: event.target.value });
   };
 
-  updatePlaceOfResidence = (event) => {
-    this.setState({ placeOfResidence: event.target.value });
+  updateStateOfResidence = (event) => {
+    this.setState({ stateOfResidence: event.target.value });
   };
 
   updateLandOwned = (event) => {
     this.setState({ landOwned: event.target.value });
+  };
+
+  updateGender = (event) => {
+    this.setState({ gender: event.target.value });
   };
 
   componentDidMount = async () => {
@@ -72,13 +80,26 @@ class FarmerPage extends Component {
       .addFarmer(
         this.state.account,
         this.state.name,
-        this.state.placeOfResidence,
+        this.state.stateOfResidence,
+        this.state.gender,
         this.state.landOwned
       )
       .send({
         from: this.state.account,
         gas: 1000000,
       });
+  };
+
+  viewPolicies = async () => {
+    try {
+      policyDetails = await this.state.FarmerInstance.methods
+        .getPoliciesAvailable(this.state.account)
+        .call({ from: this.state.account });
+      if (policyDetails.length === 0) alert("No policies available!");
+      console.log(policyDetails);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
@@ -110,20 +131,69 @@ class FarmerPage extends Component {
               />
             </div>
             <div className="form-control">
-              <label>Place of residence</label>
-              <input
-                type="text"
-                placeholder="Enter village/town name"
-                value={this.state.placeOfResidence}
-                onChange={this.updatePlaceOfResidence}
-              />
+              <label>State of Residence</label>
+              <select
+                style={{ fontSize: "25px", width: "600px" }}
+                value={this.state.stateOfResidence}
+                onChange={this.updateStateOfResidence}
+              >
+                <option value="kerala">Kerala</option>
+                <option value="bihar">Bihar</option>
+                <option value="andhrapradesh">Andhra Pradesh</option>
+                <option value="telangana">Telangana</option>
+                <option value="goa">Goa</option>
+                <option value="maharasthra">Maharasthra</option>
+                <option value="arunachalpradesh">Arunachal Pradesh</option>
+                <option value="assam">Assam</option>
+                <option value="chhattisgarh">Chhattisgarh</option>
+                <option value="gujarat">Gujarat</option>
+                <option value="haryana">Haryana</option>
+                <option value="himachalpradesh">Himachal Pradesh</option>
+                <option value="jharkhand">Jharkhand</option>
+                <option value="karnataka">Karnataka</option>
+                <option value="madhyapradesh">Madhya Pradesh</option>
+                <option value="manipur">Manipur</option>
+                <option value="meghalaya">Meghalaya</option>
+                <option value="mizoram">Mizoram</option>
+                <option value="nagaland">Nagaland</option>
+                <option value="odisha">Odisha</option>
+                <option value="punjab">Punjab</option>
+                <option value="rajasthan">Rajasthan</option>
+                <option value="sikkim">Sikkim</option>
+                <option value="tamilnadu">Tamil Nadu</option>
+                <option value="tripura">Tripura</option>
+                <option value="uttarpradesh">Uttar Pradesh</option>
+                <option value="uttarakhand">Uttarakhand</option>
+                <option value="westbengal">West Bengal</option>
+              </select>
             </div>
+
+            <div className="form-control">
+              <label>Gender</label>
+              <select
+                style={{ fontSize: "25px", width: "600px" }}
+                value={this.state.gender}
+                onChange={this.updateGender}
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
             <button
               className="btn"
               style={{ marginTop: "30px" }}
               onClick={this.addFarmer}
             >
               Submit Details
+            </button>
+            <button
+              className="btn"
+              style={{ marginTop: "30px" }}
+              onClick={this.viewPolicies}
+            >
+              View Policies
             </button>
           </form>
         </div>
