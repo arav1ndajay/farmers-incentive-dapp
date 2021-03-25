@@ -18,6 +18,7 @@ class FarmerPage extends Component {
       stateOfResidence: "",
       gender: "",
       landOwned: 0,
+      isEligible: false,
     };
   }
 
@@ -136,7 +137,6 @@ class FarmerPage extends Component {
                 value={this.state.stateOfResidence}
                 onChange={this.updateStateOfResidence}
               >
-                <option value="select">Select</option>
                 <option value="kerala">Kerala</option>
                 <option value="bihar">Bihar</option>
                 <option value="andhrapradesh">Andhra Pradesh</option>
@@ -175,14 +175,9 @@ class FarmerPage extends Component {
                 value={this.state.gender}
                 onChange={this.updateGender}
               >
-                <option selected value="select">
-                  Select
-                </option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-                <option selected value="other">
-                  Other
-                </option>
+                <option value="other">Other</option>
               </select>
             </div>
 

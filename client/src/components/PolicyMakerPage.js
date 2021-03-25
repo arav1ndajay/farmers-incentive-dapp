@@ -122,7 +122,7 @@ class PolicyMakerPage extends React.Component {
                 <option value="all">All genders</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-                <option value="others">Others</option>
+                <option value="other">Other</option>
               </select>
             </div>
             <div className="form-control">
@@ -132,7 +132,6 @@ class PolicyMakerPage extends React.Component {
                 value={this.state.stateOfResidence}
                 onChange={this.updateStateOfResidence}
               >
-                <option value="select">Select</option>
                 <option value="kerala">Kerala</option>
                 <option value="bihar">Bihar</option>
                 <option value="andhrapradesh">Andhra Pradesh</option>
