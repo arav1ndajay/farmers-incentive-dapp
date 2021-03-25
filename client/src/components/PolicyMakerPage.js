@@ -15,7 +15,7 @@ class PolicyMakerPage extends React.Component {
       policyId: "",
       maxLandReq: 0,
       gender: "all",
-      stateOfResidence: "",
+      stateOfResidence: "allstates",
     };
   }
 
@@ -132,6 +132,8 @@ class PolicyMakerPage extends React.Component {
                 value={this.state.stateOfResidence}
                 onChange={this.updateStateOfResidence}
               >
+
+                <option value="allstates">All States</option>
                 <option value="kerala">Kerala</option>
                 <option value="bihar">Bihar</option>
                 <option value="andhrapradesh">Andhra Pradesh</option>
