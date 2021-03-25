@@ -132,6 +132,9 @@ class OfficialPage extends Component {
                 Name: {farmerDetails._name}
               </div>
               <div style={{ textAlign: "center" }}>
+                Gender: {farmerDetails._gender}
+              </div>
+              <div style={{ textAlign: "center" }}>
                 Land Owned: {farmerDetails._landOwned}
               </div>
               <div style={{ textAlign: "center" }}>
