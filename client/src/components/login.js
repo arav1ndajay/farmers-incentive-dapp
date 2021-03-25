@@ -3,6 +3,8 @@ import "../App.css";
 import { Redirect } from "react-router-dom";
 import Roles from "../contracts/Roles.json";
 import getWeb3 from "../getWeb3";
+import NavBar from "./NavBar";
+import { Link } from "react-router-dom";
 
 class Login extends React.Component {
   constructor(props) {
@@ -49,8 +51,9 @@ class Login extends React.Component {
     }
     return (
       <div>
-        Lol
-        {this.state.account}
+        <NavBar/>
+        <h3>You have not registered, please register as Farmer, Official or Policy maker</h3>
+        <Link to ="/" className ="btn btn-primary">Home</Link>
       </div>
     );
   }
