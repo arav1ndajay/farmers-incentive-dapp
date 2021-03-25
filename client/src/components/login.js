@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "../App.css";
 import { Redirect } from "react-router-dom";
 import Roles from "../contracts/Roles.json";
@@ -40,11 +40,9 @@ class Login extends React.Component {
       roleID: _roleID,
     });
 
-    console.log(this.state.roleID);
   };
 
   render() {
-    console.log(this.state.roleID);
 
     if (this.state.roleID == 1) {
       return <Redirect to="/FarmerProfile" />;
