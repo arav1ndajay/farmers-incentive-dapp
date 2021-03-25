@@ -8,8 +8,8 @@ const TopCarousel = () => {
       <Carousel>
         <Carousel.Item interval={1000}>
           <img
-            width={1400}
-            height={600}
+            width="100%"
+            height="100%"
             src={require("./img/pic1.jpg")}
             alt="First slide"
           />
@@ -23,8 +23,8 @@ const TopCarousel = () => {
         </Carousel.Item>
         <Carousel.Item interval={500}>
           <img
-            width={1400}
-            height={600}
+            width="100%"
+            height="100%"
             src={require("./img/farmer.jpg")}
             alt="Second slide"
           />
@@ -35,8 +35,8 @@ const TopCarousel = () => {
         </Carousel.Item>
         <Carousel.Item>
           <img
-            width={1400}
-            height={600}
+            width="100%"
+            height="100%"
             src={require("./img/farmer.jpg")}
             alt="Third slide"
           />
