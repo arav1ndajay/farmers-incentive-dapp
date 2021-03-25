@@ -5,6 +5,7 @@ import HomePage from "./components/HomePage";
 import FarmerPage from "./components/FarmerPage";
 import OfficialPage from "./components/OfficialPage";
 import PolicyMakerPage from "./components/PolicyMakerPage";
+import FarmerProfile from "./components/FarmerProfile";
 import Login from "./components/login"
 import { Switch, Router, Route } from "react-router";
 import history from "./history";
@@ -18,6 +19,7 @@ ReactDOM.render(
         <Route path="/OfficialPage" component={OfficialPage} />
         <Route path="/PolicyMakerPage" component={PolicyMakerPage} />
         <Route path="/Login" component={Login} />
+        <Route path="/FarmerProfile" component={FarmerProfile} />
       </Switch>
     </Router>
   </div>
