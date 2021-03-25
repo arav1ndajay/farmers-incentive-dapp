@@ -17,7 +17,6 @@ class Login extends React.Component {
   }
 
   componentWillMount = async () => {
-    console.log("This happpens");
     // Get network provider and web3 instance.
     const web3 = await getWeb3();
 
@@ -32,7 +31,6 @@ class Login extends React.Component {
       deployedNetwork && deployedNetwork.address
     );
 
-    console.log("Instance is");
     console.log(instance);
     var _roleID = await instance.methods.getRole(accounts[0]).call();
     this.setState({
@@ -41,21 +39,15 @@ class Login extends React.Component {
       account: accounts[0],
       roleID: _roleID,
     });
-    console.log("ROLE ID IS");
+
     console.log(this.state.roleID);
   };
 
   render() {
-    console.log("Role ID received is");
     console.log(this.state.roleID);
 
-    if (this.state.roleID === 1) {
-      console.log("Ummmm?");
-      return (
-        <div>
-          <h1>You are now a farmer</h1>
-        </div>
-      );
+    if (this.state.roleID == 1) {
+      return <Redirect to="/FarmerProfile" />;
     }
     return (
       <div>
