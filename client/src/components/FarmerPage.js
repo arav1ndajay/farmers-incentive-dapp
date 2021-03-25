@@ -18,7 +18,6 @@ class FarmerPage extends Component {
       stateOfResidence: "",
       gender: "",
       landOwned: 0,
-      isEligible: false,
     };
   }
 
@@ -187,13 +186,6 @@ class FarmerPage extends Component {
               onClick={this.addFarmer}
             >
               Submit Details
-            </button>
-            <button
-              className="btn"
-              style={{ marginTop: "30px" }}
-              onClick={this.viewPolicies}
-            >
-              View Policies
             </button>
           </form>
         </div>
