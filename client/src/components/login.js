@@ -52,7 +52,7 @@ class Login extends React.Component {
     return (
       <div>
         <NavBar/>
-        <h3>You have not registered, please register as Farmer, Official or Policy maker</h3>
+        <h3>Lmao, You have not registered, please register as Farmer, Official or Policy maker</h3>
         <Link to ="/" className ="btn btn-primary">Home</Link>
       </div>
     );
