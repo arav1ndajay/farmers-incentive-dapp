@@ -41,19 +41,28 @@ class Login extends React.Component {
       account: accounts[0],
       roleID: _roleID,
     });
-
   };
 
   render() {
-
     if (this.state.roleID == 1) {
       return <Redirect to="/FarmerProfile" />;
+    } else if (this.state.roleID == 2) {
+      return <Redirect to="/OfficialProfile" />;
     }
     return (
       <div>
-        <NavBar/>
-        <h3>Lmao, You have not registered, please register as Farmer, Official or Policy maker</h3>
-        <Link to ="/" className ="btn btn-primary">Home</Link>
+        <NavBar />
+        {this.state.roleID === 0 && (
+          <div>
+            <h3>
+              Lmao, You have not registered, please register as Farmer, Official
+              or Policy maker
+            </h3>
+            <Link to="/" className="btn btn-primary">
+              Home
+            </Link>
+          </div>
+        )}
       </div>
     );
   }
