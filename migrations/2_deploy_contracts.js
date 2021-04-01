@@ -11,7 +11,11 @@ module.exports = async function (deployer) {
   await deployer
     .deploy(FarmerContract, Roles.address, PolicyContract.address)
     .then(function () {
-      return deployer.deploy(GovContract, FarmerContract.address);
+      return deployer.deploy(
+        GovContract,
+        Roles.address,
+        FarmerContract.address
+      );
     });
 
   // deployer.deploy(Roles).then(function () {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav} from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 
 const NavBar = () => {
   return (
@@ -7,7 +7,9 @@ const NavBar = () => {
       <Navbar.Brand href="/">Farmer DaPP</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link href="/FarmerPage">Farmer Registration</Nav.Link>
-        <Nav.Link href="/OfficialPage">Government Official</Nav.Link>
+        <Nav.Link href="/OfficialPage">
+          Government Official Registration
+        </Nav.Link>
         <Nav.Link href="/PolicyMakerPage">Policy Maker</Nav.Link>
       </Nav>
       <Nav>
