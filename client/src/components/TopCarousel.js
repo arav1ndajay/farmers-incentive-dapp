@@ -14,9 +14,12 @@ const TopCarousel = () => {
             alt="First slide"
           />
           <Carousel.Caption>
-            <h1>Register as Farmer?</h1>
+            <h1 style={{marginBottom:"30px"}}>Register as?</h1>
             <Link to="/FarmerPage" className="btn btn-primary">
               Farmer
+            </Link>
+            <Link to="/OfficialPage" className="btn btn-primary" style={{marginTop: "30px"}}>
+              Government Official
             </Link>
             <div style={{ paddingBottom: 220 }}></div>
           </Carousel.Caption>

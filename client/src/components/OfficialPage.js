@@ -3,8 +3,6 @@ import NavBar from "./NavBar";
 import getWeb3 from "../getWeb3";
 import GovContract from "../contracts/GovContract.json";
 
-var farmerDetails;
-
 class OfficialPage extends Component {
   constructor(props) {
     super(props);
@@ -68,6 +66,9 @@ class OfficialPage extends Component {
     return (
       <div>
         <NavBar />
+         <h4 style={{ textAlign: "center" }}>
+          Account address: {this.state.account}
+        </h4>
         <div className="container">
           <div className="header">Government Official Registration</div>
           <form className="add-form">
