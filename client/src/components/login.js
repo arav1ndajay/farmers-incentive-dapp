@@ -44,9 +44,9 @@ class Login extends React.Component {
   };
 
   render() {
-    if (this.state.roleID === 1) {
+    if (this.state.roleID == 1) {
       return <Redirect to="/FarmerProfile" />;
-    } else if (this.state.roleID === 2) {
+    } else if (this.state.roleID == 2) {
       return <Redirect to="/OfficialProfile" />;
     }
     return (
@@ -54,10 +54,12 @@ class Login extends React.Component {
         <NavBar />
         {this.state.roleID === 0 && (
           <div>
+            <div className ="row">
             <h3>
-              Lmao, You have not registered, please register as Farmer, Official
+              You have not registered, please register as Farmer, Official
               or Policy maker
             </h3>
+            </div>
             <Link to="/" className="btn btn-primary">
               Home
             </Link>

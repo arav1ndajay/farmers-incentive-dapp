@@ -2,15 +2,29 @@ import React from "react";
 import NavBar from "./NavBar";
 import getWeb3 from "../getWeb3";
 import FarmerContract from "../contracts/FarmerContract.json";
-
+import {Card, ListGroup} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 class ArrayToList extends React.Component{
     render()
     {
         var policies = this.props.policies;
-
+        var details = this.props.policyDetails;
         var policyList = policies.map(function(policies, index){
-                return <li key={ index }>{policies}</li>;
+                return (
+                <Card key ={index} style ={{margin:"20px"}}>
+                
+                  <h2>Policy ID: {policies}</h2>
+                  <ul>
+                  <li>Maximum Land you can own: {details[index]._maxLandReq}</li>
+                  <li>Applicable for {details[index]._gender} gender and for farmers residing in {details[index]._stateOfResidence}</li>
+                  <Link to="/">
+                    Redeem
+                  </Link>
+                  </ul>
+                
+                </Card>
+                );
         })
 
         return (
@@ -34,7 +48,8 @@ class FarmerProfile extends React.Component{
           stateOfResidence: "",
           gender: "",
           landOwned: 0,
-          policies: []
+          policies: [],
+          policyDetails: []
         };
       }
     
@@ -63,6 +78,16 @@ class FarmerProfile extends React.Component{
             // example of interacting with the contract's methods.
             var _details = await instance.methods.getFarmer(accounts[0]).call({from : accounts[0]});
             let _policies = await instance.methods.getPoliciesAvailable(accounts[0]).call({from:accounts[0]});
+            
+            for(let i =0; i < _policies.length; i++)
+            {
+              let obj = await instance.methods.getPolicy(_policies[i]).call({from : accounts[0]});
+                this.state.policyDetails.push(obj);
+            }
+
+            // DEBUG Statements
+            console.log("Details are");
+            console.log(this.state.policyDetails);
 
             this.setState({
                 FarmerInstance: instance,
@@ -102,17 +127,28 @@ class FarmerProfile extends React.Component{
     {
         return (
             <div>
-            <NavBar/>
-                <h1> Name</h1>
-                <h2> {this.state.name}</h2>
-                <h1> Gender</h1>
-                <h2> {this.state.gender}</h2>
-                <h1> State of Residence </h1>
-                <h2> {this.state.stateOfResidence}</h2>
-                <h1> Land owned </h1>
-                <h2> {this.state.landOwned}</h2>
-                <h1>Available policy ids</h1>
-                <ArrayToList policies = {this.state.policies} />
+              <NavBar/>
+              <div className = "row">
+                <div className ="col-7">
+                  <h1>Available policies </h1>
+                  <ArrayToList policies = {this.state.policies} policyDetails = {this.state.policyDetails}/>
+
+                </div>
+                <div className ="col-5">
+                  <Card style={{ width: '18rem' }}>
+                    <Card.Body>
+                      <Card.Title>Profile</Card.Title>
+                      <Card.Subtitle className="mb-2 text-muted">Farmer</Card.Subtitle>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>Name : {this.state.name}</ListGroup.Item>
+                        <ListGroup.Item>Gender : {this.state.gender} </ListGroup.Item>
+                        <ListGroup.Item>State of residence : {this.state.stateOfResidence}</ListGroup.Item>
+                        <ListGroup.Item>Land Owned : {this.state.landOwned} acre</ListGroup.Item>
+                      </ListGroup>
+                    </Card.Body>
+                  </Card>
+                </div>
+              </div>
             </div>
         );
     }
