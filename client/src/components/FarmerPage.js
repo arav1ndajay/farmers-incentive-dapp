@@ -109,7 +109,7 @@ class FarmerPage extends Component {
           Account address: {this.state.account}
         </h4>
         <div className="container">
-          <div className="header">Farmer Details</div>
+          <div className="header">Farmer Registration</div>
           <form className="add-form">
             <div className="form-control">
               <label>Name</label>
