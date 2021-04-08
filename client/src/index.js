@@ -7,7 +7,6 @@ import OfficialPage from "./components/OfficialPage";
 import OfficialProfile from "./components/OfficialProfile";
 import PolicyMakerPage from "./components/PolicyMakerPage";
 import FarmerProfile from "./components/FarmerProfile";
-import DeleteFarmerProfile from "./components/DeleteFarmerProfile";
 import Login from "./components/login";
 import { Switch, Router, Route } from "react-router";
 import history from "./history";
