@@ -7,6 +7,7 @@ import OfficialPage from "./components/OfficialPage";
 import OfficialProfile from "./components/OfficialProfile";
 import PolicyMakerPage from "./components/PolicyMakerPage";
 import FarmerProfile from "./components/FarmerProfile";
+import ColdStoragePage from "./components/ColdStoragePage";
 import Login from "./components/login";
 import { Switch, Router, Route } from "react-router";
 import history from "./history";
@@ -22,6 +23,7 @@ ReactDOM.render(
         <Route path="/Login" component={Login} />
         <Route path="/FarmerProfile" component={FarmerProfile} />
         <Route path="/OfficialProfile" component={OfficialProfile} />
+        <Route path="/ColdStoragePage" component={ColdStoragePage} />
       </Switch>
     </Router>
   </div>,
