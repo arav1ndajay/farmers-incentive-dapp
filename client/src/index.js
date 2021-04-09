@@ -9,6 +9,7 @@ import PolicyMakerPage from "./components/PolicyMakerPage";
 import FarmerProfile from "./components/FarmerProfile";
 import ColdStoragePage from "./components/ColdStoragePage";
 import Login from "./components/login";
+import BuyColdStorage from "./components/BuyColdStorage";
 import { Switch, Router, Route } from "react-router";
 import history from "./history";
 
@@ -24,6 +25,7 @@ ReactDOM.render(
         <Route path="/FarmerProfile" component={FarmerProfile} />
         <Route path="/OfficialProfile" component={OfficialProfile} />
         <Route path="/ColdStoragePage" component={ColdStoragePage} />
+        <Route path="/BuyColdStorage" component={BuyColdStorage} />
       </Switch>
     </Router>
   </div>,

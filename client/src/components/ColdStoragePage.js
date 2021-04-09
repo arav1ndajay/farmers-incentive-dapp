@@ -16,6 +16,7 @@ class ColdStoragePage extends Component {
       location: "",
       capacity: 0,
       coldStorageID: null,
+      price: 0,
       tenants: [],
     };
   }
@@ -34,6 +35,10 @@ class ColdStoragePage extends Component {
 
   updateColdStorageID = (event) => {
     this.setState({ coldStorageID: event.target.value });
+  };
+
+  updatePrice = (event) => {
+    this.setState({ price: event.target.value });
   };
 
   componentDidMount = async () => {
@@ -80,6 +85,7 @@ class ColdStoragePage extends Component {
         this.state.ownerName,
         this.state.location,
         this.state.capacity,
+        this.state.price,
         this.state.account
       )
       .send({
@@ -98,6 +104,15 @@ class ColdStoragePage extends Component {
         <div className="container">
           <div className="header">Cold Storage Registration</div>
           <form className="add-form">
+            <div className="form-control">
+              <label>Cold Storage ID</label>
+              <input
+                type="number"
+                placeholder="Enter cold storage ID"
+                value={this.state.coldStorageID}
+                onChange={this.updateColdStorageID}
+              />
+            </div>
             <div className="form-control">
               <label>Owner Name</label>
               <input
@@ -119,10 +134,19 @@ class ColdStoragePage extends Component {
             <div className="form-control">
               <label>Capacity</label>
               <input
-                type="text"
+                type="number"
                 placeholder="Enter capacity of cold storage"
                 value={this.state.capacity}
                 onChange={this.updateCapacity}
+              />
+            </div>
+            <div className="form-control">
+              <label>Price</label>
+              <input
+                type="number"
+                placeholder="Enter price of cold storage"
+                value={this.state.price}
+                onChange={this.updatePrice}
               />
             </div>
             <button
