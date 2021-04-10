@@ -42,6 +42,30 @@ contract ColdStorageContract {
         return coldStorages[_id].requests;
     }
 
+    function getCSrequested(address _address)
+        public
+        view
+        returns (uint256[] memory)
+    {
+        uint256[] memory CSIDs = new uint256[](coldStorageIDs.length);
+        uint256 pointer = 0;
+        //loop to traverse through cold storages
+        for (uint256 i = 0; i < coldStorageIDs.length; i++) {
+            for (
+                uint256 j = 0;
+                j < coldStorages[coldStorageIDs[i]].requests.length;
+                j++
+            ) {
+                if (coldStorages[coldStorageIDs[i]].requests[j] == _address) {
+                    CSIDs[pointer] = coldStorageIDs[i];
+                    pointer++;
+                    break;
+                }
+            }
+        }
+        return CSIDs;
+    }
+
     function getColdStorage(uint256 _id)
         public
         view
@@ -70,10 +94,6 @@ contract ColdStorageContract {
         if (address(msg.sender).balance >= coldStorages[_id].price) {
             coldStorages[_id].requests.push(address(msg.sender));
         }
-    }
-
-    function fakeRequest(uint256 _id) public view returns (uint256, uint256) {
-        return (msg.sender.balance, coldStorages[_id].price);
     }
 
     function removeRequest(address _address, uint256 _id) public {
