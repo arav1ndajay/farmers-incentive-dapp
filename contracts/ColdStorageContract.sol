@@ -91,6 +91,9 @@ contract ColdStorageContract {
     }
 
     function requestColdStorage(uint256 _id) public {
+        //owner can't buy their own storage
+        require(msg.sender != coldStorages[_id].ownerAddress);
+
         if (address(msg.sender).balance >= coldStorages[_id].price) {
             coldStorages[_id].requests.push(address(msg.sender));
         }

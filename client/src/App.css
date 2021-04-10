@@ -1,3 +1,12 @@
+.App {
+  width: 100vh;
+  height: 100vh;
+}
+
+body > #root > div {
+  height: 100vh;
+}
+
 .header {
   display: flex;
   justify-content: center;
@@ -17,6 +26,14 @@
   border: 5px solid burlywood;
   padding: 30px;
   border-radius: 5px;
+}
+
+.fill-window {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
 }
 
 .btn {
@@ -59,4 +76,35 @@
   margin: auto;
   padding: 3px 7px;
   font-size: 18px;
+}
+
+.Sidebar {
+  height: 100%;
+  width: 150px;
+  background-color: #f78d51;
+}
+
+.SidebarList {
+  height: auto;
+  padding: 0;
+  width: 100%;
+}
+
+.SidebarList .row {
+  width: 100%;
+  height: 200px;
+  list-style-type: none;
+  font-size: 20px;
+  margin: 0%;
+  color: white;
+  align-items: center;
+}
+
+.SidebarList #active {
+  background-color: red;
+}
+
+.SidebarList .row:hover {
+  cursor: pointer;
+  background-color: red;
 }
