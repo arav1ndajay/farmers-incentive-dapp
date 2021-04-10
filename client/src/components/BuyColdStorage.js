@@ -3,12 +3,14 @@ import NavBar from "./NavBar";
 import "../App.css";
 import getWeb3 from "../getWeb3";
 import ColdStorageContract from "../contracts/ColdStorageContract.json";
-import { Card, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
-class ArrayToList extends React.Component {
+import { Card, Container, Row, Col, Button } from "react-bootstrap";
+
+class AvailableStorages extends React.Component {
   render() {
     var coldStorageIDs = this.props.coldStorageIDs;
     var coldStorageDetails = this.props.coldStorageDetails;
+    var instance = this.props.instance;
+    var account = this.props.account;
 
     //conditions to filter
     var locationToFilter = this.props.locationToFilter.toLowerCase();
@@ -20,15 +22,15 @@ class ArrayToList extends React.Component {
         (coldStorageDetails[index]._location
           .toLowerCase()
           .includes(locationToFilter) ||
-          locationToFilter == "") &&
+          locationToFilter === "") &&
         (priceToFilter == 0 ||
           parseInt(coldStorageDetails[index]._price) / 10 ** 18 <=
             priceToFilter) &&
-        (capacityToFilter == 0 ||
+        (capacityToFilter === 0 ||
           parseInt(coldStorageDetails[index]._capacity) >= capacityToFilter)
       ) {
         return (
-          <Card key={index} style={{ margin: "20px" }}>
+          <Card key={index} style={{ marginBottom: "10px", maxWidth: "300px" }}>
             <h2>ID: {ID}</h2>
             <h2 style={{ fontSize: "20px" }}>
               Owner's address: {coldStorageDetails[index]._ownerAddress}
@@ -40,14 +42,105 @@ class ArrayToList extends React.Component {
               <li>
                 Price: {coldStorageDetails[index]._price / 10 ** 18} ether
               </li>
-              <Link to="/">Request cold storage</Link>
+              <Row>
+                <button
+                  style={{
+                    fontSize: "15px",
+                    color: "white",
+                    backgroundColor: "red",
+                  }}
+                  onClick={async () => {
+                    try {
+                      console.log(typeof account);
+                      await instance.methods.requestColdStorage(ID).send({
+                        from: account,
+                        gas: 1000000,
+                      });
+                      alert("Request has been placed!");
+                      window.location.reload();
+                    } catch (error) {
+                      alert("Something went wrong. Please try again!");
+                      console.log(error);
+                    }
+                  }}
+                >
+                  Request cold storage
+                </button>
+                <button
+                  style={{
+                    fontSize: "15px",
+                    color: "white",
+                    backgroundColor: "red",
+                  }}
+                  onClick={async () => {
+                    try {
+                      console.log(account);
+                      console.log(ID);
+                      var x = await instance.methods
+                        .getRequests(ID)
+                        .call({ from: account });
+                      console.log(x);
+                    } catch (error) {
+                      alert("You are not the owner!");
+                      console.log(error);
+                    }
+                  }}
+                >
+                  Show Requests
+                </button>
+              </Row>
+            </ul>
+          </Card>
+        );
+      } else return <div></div>;
+    });
+
+    return <ul>{coldStorageList}</ul>;
+  }
+}
+
+class RequestedStorages extends React.Component {
+  render() {
+    var requestedIDs = this.props.requestedIDs;
+    var requestedStorages = this.props.requestedStorages;
+    var instance = this.props.instance;
+    var account = this.props.account;
+
+    console.log(requestedIDs);
+
+    var requestedStorageList = requestedIDs.map(function (ID, index) {
+      if (requestedStorages[index] != null) {
+        return (
+          <Card key={index} style={{ marginBottom: "10px", maxWidth: "300px" }}>
+            <h2>ID: {ID}</h2>
+            <h2 style={{ fontSize: "20px" }}>
+              Owner's address: {requestedStorages[index]._ownerAddress}
+            </h2>
+            <ul>
+              <li>Owner name: {requestedStorages[index]._ownerName}</li>
+              <li>Location: {requestedStorages[index]._location}</li>
+              <li>Capacity: {requestedStorages[index]._capacity}</li>
+              <li>Price: {requestedStorages[index]._price / 10 ** 18} ether</li>
+              <Row>
+                <button
+                  style={{
+                    fontSize: "15px",
+                    color: "white",
+                    backgroundColor: "red",
+                  }}
+                >
+                  View status
+                </button>
+              </Row>
             </ul>
           </Card>
         );
       }
     });
 
-    return <ul>{coldStorageList}</ul>;
+    if (requestedStorageList != null) {
+      return <ul>{requestedStorageList}</ul>;
+    } else return <div></div>;
   }
 }
 
@@ -64,6 +157,8 @@ class ColdStoragePage extends Component {
       capacity: 0,
       coldStorageIDs: [],
       coldStorageDetails: [],
+      requestedIDs: [],
+      requestedStorages: [],
       price: 0,
       tenants: [],
       priceToFilter: 0,
@@ -93,15 +188,27 @@ class ColdStoragePage extends Component {
         deployedNetwork && deployedNetwork.address
       );
 
-      var _coldStorageIDs = await instance.methods
-        .getColdStorageIDs()
-        .call({ from: accounts[0] });
+      var _coldStorageIDs = await instance.methods.getColdStorageIDs().call();
 
       for (let i = 0; i < _coldStorageIDs.length; i++) {
         let obj = await instance.methods
           .getColdStorage(_coldStorageIDs[i])
-          .call({ from: accounts[0] });
+          .call();
         this.state.coldStorageDetails.push(obj);
+      }
+
+      var _requestedIDs = await instance.methods
+        .getCSrequested(accounts[0])
+        .call();
+
+      for (let i = 0; i < _requestedIDs.length; i++) {
+        if (_requestedIDs[i] != 0) {
+          let obj = await instance.methods
+            .getColdStorage(_requestedIDs[i])
+            .call();
+          console.log(obj);
+          this.state.requestedStorages.push(obj);
+        }
       }
 
       this.setState({
@@ -109,6 +216,7 @@ class ColdStoragePage extends Component {
         web3: web3,
         account: accounts[0],
         coldStorageIDs: _coldStorageIDs,
+        requestedIDs: _requestedIDs,
       });
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -136,17 +244,28 @@ class ColdStoragePage extends Component {
       <div>
         <NavBar />
         <Row>
-          <Col>
-            <h1 style={{ textAlign: "center" }}>Available cold storages </h1>
-            <ArrayToList
+          <Col sm>
+            <h1 style={{ fontSize: "30px" }}>Available cold storages </h1>
+            <AvailableStorages
               coldStorageIDs={this.state.coldStorageIDs}
               coldStorageDetails={this.state.coldStorageDetails}
               locationToFilter={this.state.locationToFilter}
               priceToFilter={this.state.priceToFilter}
               capacityToFilter={this.state.capacityToFilter}
+              instance={this.state.ColdStorageInstance}
+              account={this.state.account}
             />
           </Col>
-          <Col>
+          <Col sm>
+            <h1 style={{ fontSize: "30px" }}>Requested cold storages </h1>
+            <RequestedStorages
+              requestedIDs={this.state.requestedIDs}
+              requestedStorages={this.state.requestedStorages}
+              instance={this.state.ColdStorageInstance}
+              account={this.state.account}
+            />
+          </Col>
+          <Col sm>
             <form className="add-form" style={{ maxWidth: "500px" }}>
               <div className="form-control">
                 <label>Filter by price</label>

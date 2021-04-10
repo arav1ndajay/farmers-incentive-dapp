@@ -78,20 +78,28 @@ class ColdStoragePage extends Component {
     }
   };
 
-  addColdStorage = async () => {
-    await this.state.ColdStorageInstance.methods
-      .addColdStorage(
-        this.state.coldStorageID,
-        this.state.ownerName,
-        this.state.location,
-        this.state.capacity,
-        this.state.price,
-        this.state.account
-      )
-      .send({
-        from: this.state.account,
-        gas: 1000000,
-      });
+  addColdStorage = async (event) => {
+    event.preventDefault();
+    try {
+      await this.state.ColdStorageInstance.methods
+        .addColdStorage(
+          this.state.coldStorageID,
+          this.state.ownerName,
+          this.state.location,
+          this.state.capacity,
+          this.state.price,
+          this.state.account
+        )
+        .send({
+          from: this.state.account,
+          gas: 1000000,
+        });
+      alert("Successfully registered!");
+      window.location.reload();
+    } catch (error) {
+      alert("Error while registering! Please try again!");
+      console.log(error);
+    }
   };
 
   render() {
