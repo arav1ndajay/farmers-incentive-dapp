@@ -3,146 +3,9 @@ import NavBar from "./NavBar";
 import "../App.css";
 import getWeb3 from "../getWeb3";
 import ColdStorageContract from "../contracts/ColdStorageContract.json";
-import { Card, Container, Row, Col, Button } from "react-bootstrap";
-
-class AvailableStorages extends React.Component {
-  render() {
-    var coldStorageIDs = this.props.coldStorageIDs;
-    var coldStorageDetails = this.props.coldStorageDetails;
-    var instance = this.props.instance;
-    var account = this.props.account;
-
-    //conditions to filter
-    var locationToFilter = this.props.locationToFilter.toLowerCase();
-    var priceToFilter = this.props.priceToFilter;
-    var capacityToFilter = this.props.capacityToFilter;
-
-    var coldStorageList = coldStorageIDs.map(function (ID, index) {
-      if (
-        (coldStorageDetails[index]._location
-          .toLowerCase()
-          .includes(locationToFilter) ||
-          locationToFilter === "") &&
-        (priceToFilter == 0 ||
-          parseInt(coldStorageDetails[index]._price) / 10 ** 18 <=
-            priceToFilter) &&
-        (capacityToFilter === 0 ||
-          parseInt(coldStorageDetails[index]._capacity) >= capacityToFilter)
-      ) {
-        return (
-          <Card key={index} style={{ marginBottom: "10px", maxWidth: "300px" }}>
-            <h2>ID: {ID}</h2>
-            <h2 style={{ fontSize: "20px" }}>
-              Owner's address: {coldStorageDetails[index]._ownerAddress}
-            </h2>
-            <ul>
-              <li>Owner name: {coldStorageDetails[index]._ownerName}</li>
-              <li>Location: {coldStorageDetails[index]._location}</li>
-              <li>Capacity: {coldStorageDetails[index]._capacity}</li>
-              <li>
-                Price: {coldStorageDetails[index]._price / 10 ** 18} ether
-              </li>
-              <Row>
-                <button
-                  style={{
-                    fontSize: "15px",
-                    color: "white",
-                    backgroundColor: "red",
-                  }}
-                  onClick={async () => {
-                    try {
-                      console.log(typeof account);
-                      await instance.methods.requestColdStorage(ID).send({
-                        from: account,
-                        gas: 1000000,
-                      });
-                      alert("Request has been placed!");
-                      window.location.reload();
-                    } catch (error) {
-                      alert("Something went wrong. Please try again!");
-                      console.log(error);
-                    }
-                  }}
-                >
-                  Request cold storage
-                </button>
-                <button
-                  style={{
-                    fontSize: "15px",
-                    color: "white",
-                    backgroundColor: "red",
-                  }}
-                  onClick={async () => {
-                    try {
-                      console.log(account);
-                      console.log(ID);
-                      var x = await instance.methods
-                        .getRequests(ID)
-                        .call({ from: account });
-                      console.log(x);
-                    } catch (error) {
-                      alert("You are not the owner!");
-                      console.log(error);
-                    }
-                  }}
-                >
-                  Show Requests
-                </button>
-              </Row>
-            </ul>
-          </Card>
-        );
-      } else return <div></div>;
-    });
-
-    return <ul>{coldStorageList}</ul>;
-  }
-}
-
-class RequestedStorages extends React.Component {
-  render() {
-    var requestedIDs = this.props.requestedIDs;
-    var requestedStorages = this.props.requestedStorages;
-    var instance = this.props.instance;
-    var account = this.props.account;
-
-    console.log(requestedIDs);
-
-    var requestedStorageList = requestedIDs.map(function (ID, index) {
-      if (requestedStorages[index] != null) {
-        return (
-          <Card key={index} style={{ marginBottom: "10px", maxWidth: "300px" }}>
-            <h2>ID: {ID}</h2>
-            <h2 style={{ fontSize: "20px" }}>
-              Owner's address: {requestedStorages[index]._ownerAddress}
-            </h2>
-            <ul>
-              <li>Owner name: {requestedStorages[index]._ownerName}</li>
-              <li>Location: {requestedStorages[index]._location}</li>
-              <li>Capacity: {requestedStorages[index]._capacity}</li>
-              <li>Price: {requestedStorages[index]._price / 10 ** 18} ether</li>
-              <Row>
-                <button
-                  style={{
-                    fontSize: "15px",
-                    color: "white",
-                    backgroundColor: "red",
-                  }}
-                >
-                  View status
-                </button>
-              </Row>
-            </ul>
-          </Card>
-        );
-      }
-    });
-
-    if (requestedStorageList != null) {
-      return <ul>{requestedStorageList}</ul>;
-    } else return <div></div>;
-  }
-}
+import { Row, Col } from "react-bootstrap";
+import AvailableStorages from "./AvailableStorages";
+import RequestedStorages from "./RequestedStorages";
 
 class ColdStoragePage extends Component {
   constructor(props) {
@@ -164,6 +27,7 @@ class ColdStoragePage extends Component {
       priceToFilter: 0,
       locationToFilter: "",
       capacityToFilter: 0,
+      viewToShow: 0,
     };
   }
 
@@ -243,28 +107,81 @@ class ColdStoragePage extends Component {
     return (
       <div>
         <NavBar />
-        <Row>
-          <Col sm>
-            <h1 style={{ fontSize: "30px" }}>Available cold storages </h1>
-            <AvailableStorages
-              coldStorageIDs={this.state.coldStorageIDs}
-              coldStorageDetails={this.state.coldStorageDetails}
-              locationToFilter={this.state.locationToFilter}
-              priceToFilter={this.state.priceToFilter}
-              capacityToFilter={this.state.capacityToFilter}
-              instance={this.state.ColdStorageInstance}
-              account={this.state.account}
-            />
+        <Row style={{ height: "95vh" }}>
+          <Col>
+            <div className="Sidebar">
+              <ul className="SidebarList">
+                <li
+                  className="row"
+                  id={this.state.viewToShow == 0 ? "active" : ""}
+                  onClick={() => {
+                    this.setState({ viewToShow: 0 });
+                  }}
+                >
+                  Available Cold Storages
+                </li>
+                <li
+                  className="row"
+                  id={this.state.viewToShow == 1 ? "active" : ""}
+                  onClick={() => {
+                    this.setState({ viewToShow: 1 });
+                  }}
+                >
+                  Requested Cold Storages
+                </li>
+                <li
+                  className="row"
+                  id={this.state.viewToShow == 2 ? "active" : ""}
+                  onClick={() => {
+                    this.setState({ viewToShow: 2 });
+                  }}
+                >
+                  Your Cold Storages
+                </li>
+              </ul>
+            </div>
           </Col>
-          <Col sm>
-            <h1 style={{ fontSize: "30px" }}>Requested cold storages </h1>
-            <RequestedStorages
-              requestedIDs={this.state.requestedIDs}
-              requestedStorages={this.state.requestedStorages}
-              instance={this.state.ColdStorageInstance}
-              account={this.state.account}
-            />
-          </Col>
+          {this.state.viewToShow == 0 && (
+            <Col sm style={{ margin: "0px" }}>
+              <h1 style={{ fontSize: "30px" }}>Available cold storages </h1>
+              <AvailableStorages
+                coldStorageIDs={this.state.coldStorageIDs}
+                coldStorageDetails={this.state.coldStorageDetails}
+                locationToFilter={this.state.locationToFilter}
+                priceToFilter={this.state.priceToFilter}
+                capacityToFilter={this.state.capacityToFilter}
+                instance={this.state.ColdStorageInstance}
+                account={this.state.account}
+                requestedIDs={this.state.requestedIDs}
+              />
+            </Col>
+          )}
+          {this.state.viewToShow == 1 && (
+            <Col sm>
+              <h1 style={{ fontSize: "30px" }}>Requested cold storages </h1>
+              <RequestedStorages
+                requestedIDs={this.state.requestedIDs}
+                requestedStorages={this.state.requestedStorages}
+                instance={this.state.ColdStorageInstance}
+                account={this.state.account}
+              />
+            </Col>
+          )}
+          {this.state.viewToShow == 2 && (
+            <Col sm>
+              <h1 style={{ fontSize: "30px" }}>Your cold storages </h1>
+              <AvailableStorages
+                coldStorageIDs={this.state.coldStorageIDs}
+                coldStorageDetails={this.state.coldStorageDetails}
+                locationToFilter={this.state.locationToFilter}
+                priceToFilter={this.state.priceToFilter}
+                capacityToFilter={this.state.capacityToFilter}
+                instance={this.state.ColdStorageInstance}
+                account={this.state.account}
+                requestedIDs={this.state.requestedIDs}
+              />
+            </Col>
+          )}
           <Col sm>
             <form className="add-form" style={{ maxWidth: "500px" }}>
               <div className="form-control">
