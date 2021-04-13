@@ -1,0 +1,31 @@
+#!/bin/bash
+
+cd ./components
+read -p "Enter Policy file name: " policyName
+
+
+ex RegisteredContracts.js <<eof
+/FLAG END OF IMPORTS/ insert
+import $policyName from "../contracts/$policyName.json"; 
+.
+xit
+eof
+
+ex RegisteredContracts.js  <<eof
+/FLAG END OF REGISTERS/ insert
+RegisteredContracts.push([$policyName.abi,$policyName.networks[networkId]]); 
+.
+xit
+eof
+
+cd ../../../migrations
+
+echo 'var $policyName = artifacts.require("./$policyName.sol");
+var FarmerContract = artifacts.require("./FarmerContract.sol");
+
+module.exports = function(deployer) {
+  deployer.deploy($policyName, FarmerContract.address);
+};
+' >> "deploy_$policyName.js"
+
+#truffle migrate
