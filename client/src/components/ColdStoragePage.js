@@ -4,6 +4,10 @@ import "../App.css";
 import getWeb3 from "../getWeb3";
 import ColdStorageContract from "../contracts/ColdStorageContract.json";
 
+window.ethereum.on("accountsChanged", () => {
+  window.location.reload();
+});
+
 class ColdStoragePage extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +19,7 @@ class ColdStoragePage extends Component {
       ownerName: "",
       location: "",
       capacity: 0,
-      coldStorageID: null,
+      coldStorageID: 0,
       price: 0,
       tenants: [],
     };

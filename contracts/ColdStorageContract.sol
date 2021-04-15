@@ -9,6 +9,7 @@ contract ColdStorageContract {
         uint256 price;
         address ownerAddress;
         address[] requests;
+        address[] approvedRequests;
         address[] tenants;
     }
 
@@ -57,6 +58,33 @@ contract ColdStorageContract {
                 j++
             ) {
                 if (coldStorages[coldStorageIDs[i]].requests[j] == _address) {
+                    CSIDs[pointer] = coldStorageIDs[i];
+                    pointer++;
+                    break;
+                }
+            }
+        }
+        return CSIDs;
+    }
+
+    function getCSapproved(address _address)
+        public
+        view
+        returns (uint256[] memory)
+    {
+        uint256[] memory CSIDs = new uint256[](coldStorageIDs.length);
+        uint256 pointer = 0;
+        //loop to traverse through cold storages
+        for (uint256 i = 0; i < coldStorageIDs.length; i++) {
+            for (
+                uint256 j = 0;
+                j < coldStorages[coldStorageIDs[i]].approvedRequests.length;
+                j++
+            ) {
+                if (
+                    coldStorages[coldStorageIDs[i]].approvedRequests[j] ==
+                    _address
+                ) {
                     CSIDs[pointer] = coldStorageIDs[i];
                     pointer++;
                     break;
@@ -124,16 +152,78 @@ contract ColdStorageContract {
         } else return;
     }
 
-    function rentColdStorage(uint256 _id, address _address) public {
+    function removeApprovedRequest(address _address, uint256 _id) public {
+        address[] storage appReqs = coldStorages[_id].approvedRequests;
+
+        bool isPresent = false;
+        uint256 reqIndex = 0;
+
+        for (uint256 i = 0; i < appReqs.length; i++) {
+            if (appReqs[i] == _address) {
+                isPresent = true;
+                reqIndex = i;
+                break;
+            }
+        }
+
+        if (isPresent) {
+            for (uint256 i = reqIndex; i < appReqs.length - 1; i++) {
+                appReqs[i] = appReqs[i + 1];
+            }
+
+            delete appReqs[appReqs.length - 1];
+            coldStorages[_id].approvedRequests = appReqs;
+            coldStorages[_id].approvedRequests.pop();
+        } else return;
+    }
+
+    function approveColdStorage(uint256 _id, address _address) public {
         require(msg.sender == coldStorages[_id].ownerAddress);
 
-        coldStorages[_id].tenants.push(_address);
+        coldStorages[_id].approvedRequests.push(_address);
         removeRequest(_address, _id);
+    }
+
+    function getApprovedRequests(uint256 _id)
+        public
+        view
+        returns (address[] memory)
+    {
+        require(msg.sender == coldStorages[_id].ownerAddress);
+
+        return coldStorages[_id].approvedRequests;
+    }
+
+    function rentColdStorage(uint256 _id) public {
+        coldStorages[_id].tenants.push(msg.sender);
+        removeApprovedRequest(msg.sender, _id);
+    }
+
+    function getRentedStorages(address _address)
+        public
+        view
+        returns (uint256[] memory)
+    {
+        uint256[] memory rentedIDs = new uint256[](coldStorageIDs.length);
+        uint256 pointer = 0;
+        for (uint256 i = 0; i < coldStorageIDs.length; i++) {
+            for (
+                uint256 j = 0;
+                j < coldStorages[coldStorageIDs[i]].tenants.length;
+                j++
+            ) {
+                if (coldStorages[coldStorageIDs[i]].tenants[j] == _address) {
+                    rentedIDs[pointer] = coldStorageIDs[i];
+                    pointer++;
+                    break;
+                }
+            }
+        }
+        return rentedIDs;
     }
 
     function getTenants(uint256 _id) public view returns (address[] memory) {
         require(msg.sender == coldStorages[_id].ownerAddress);
-
         return coldStorages[_id].tenants;
     }
 }

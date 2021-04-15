@@ -6,6 +6,13 @@ import ColdStorageContract from "../contracts/ColdStorageContract.json";
 import { Row, Col } from "react-bootstrap";
 import AvailableStorages from "./AvailableStorages";
 import RequestedStorages from "./RequestedStorages";
+import ApprovedStorages from "./ApprovedStorages";
+import OwnStorages from "./OwnStorages";
+import RentedStorages from "./RentedStorages";
+
+window.ethereum.on("accountsChanged", () => {
+  window.location.reload();
+});
 
 class ColdStoragePage extends Component {
   constructor(props) {
@@ -22,8 +29,12 @@ class ColdStoragePage extends Component {
       coldStorageDetails: [],
       requestedIDs: [],
       requestedStorages: [],
-      price: 0,
+      approvedIDs: [],
+      approvedStorages: [],
+      rentedIDs: [],
+      rentedStorages: [],
       tenants: [],
+      price: 0,
       priceToFilter: 0,
       locationToFilter: "",
       capacityToFilter: 0,
@@ -52,6 +63,7 @@ class ColdStoragePage extends Component {
         deployedNetwork && deployedNetwork.address
       );
 
+      //getting available cold storages
       var _coldStorageIDs = await instance.methods.getColdStorageIDs().call();
 
       for (let i = 0; i < _coldStorageIDs.length; i++) {
@@ -61,6 +73,7 @@ class ColdStoragePage extends Component {
         this.state.coldStorageDetails.push(obj);
       }
 
+      //getting the requested IDs and storages
       var _requestedIDs = await instance.methods
         .getCSrequested(accounts[0])
         .call();
@@ -70,8 +83,33 @@ class ColdStoragePage extends Component {
           let obj = await instance.methods
             .getColdStorage(_requestedIDs[i])
             .call();
-          console.log(obj);
           this.state.requestedStorages.push(obj);
+        }
+      }
+
+      //getting the approved IDs and storages
+      var _approvedIDs = await instance.methods
+        .getCSapproved(accounts[0])
+        .call();
+
+      for (let i = 0; i < _approvedIDs.length; i++) {
+        if (_approvedIDs[i] != 0) {
+          let obj = await instance.methods
+            .getColdStorage(_approvedIDs[i])
+            .call();
+          this.state.approvedStorages.push(obj);
+        }
+      }
+
+      //getting the rented IDs and storages
+      var _rentedIDs = await instance.methods
+        .getRentedStorages(accounts[0])
+        .call();
+
+      for (let i = 0; i < _rentedIDs.length; i++) {
+        if (_rentedIDs[i] != 0) {
+          let obj = await instance.methods.getColdStorage(_rentedIDs[i]).call();
+          this.state.rentedStorages.push(obj);
         }
       }
 
@@ -81,6 +119,8 @@ class ColdStoragePage extends Component {
         account: accounts[0],
         coldStorageIDs: _coldStorageIDs,
         requestedIDs: _requestedIDs,
+        approvedIDs: _approvedIDs,
+        rentedIDs: _rentedIDs,
       });
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -127,7 +167,7 @@ class ColdStoragePage extends Component {
                     this.setState({ viewToShow: 1 });
                   }}
                 >
-                  Requested Cold Storages
+                  Requested and Approved Cold Storages
                 </li>
                 <li
                   className="row"
@@ -153,6 +193,8 @@ class ColdStoragePage extends Component {
                 instance={this.state.ColdStorageInstance}
                 account={this.state.account}
                 requestedIDs={this.state.requestedIDs}
+                approvedIDs={this.state.approvedIDs}
+                rentedIDs={this.state.rentedIDs}
               />
             </Col>
           )}
@@ -165,12 +207,20 @@ class ColdStoragePage extends Component {
                 instance={this.state.ColdStorageInstance}
                 account={this.state.account}
               />
+              <h1 style={{ fontSize: "30px" }}>Approved cold storages </h1>
+              <ApprovedStorages
+                approvedIDs={this.state.approvedIDs}
+                approvedStorages={this.state.approvedStorages}
+                instance={this.state.ColdStorageInstance}
+                account={this.state.account}
+                web3={this.state.web3}
+              />
             </Col>
           )}
           {this.state.viewToShow == 2 && (
             <Col sm>
-              <h1 style={{ fontSize: "30px" }}>Your cold storages </h1>
-              <AvailableStorages
+              <h1 style={{ fontSize: "30px" }}>Own storages </h1>
+              <OwnStorages
                 coldStorageIDs={this.state.coldStorageIDs}
                 coldStorageDetails={this.state.coldStorageDetails}
                 locationToFilter={this.state.locationToFilter}
@@ -178,7 +228,13 @@ class ColdStoragePage extends Component {
                 capacityToFilter={this.state.capacityToFilter}
                 instance={this.state.ColdStorageInstance}
                 account={this.state.account}
-                requestedIDs={this.state.requestedIDs}
+              />
+              <h1 style={{ fontSize: "30px" }}>Rented storages </h1>
+              <RentedStorages
+                rentedIDs={this.state.rentedIDs}
+                rentedStorages={this.state.rentedStorages}
+                instance={this.state.ColdStorageInstance}
+                account={this.state.account}
               />
             </Col>
           )}

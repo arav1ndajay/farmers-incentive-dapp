@@ -50,12 +50,17 @@ class RequestedStorages extends React.Component {
             </ul>
           </Card>
         );
-      }
+      } else return null;
     });
 
-    if (requestedStorageList != null) {
+    if (requestedStorageList[0] != null) {
       return <ul>{requestedStorageList}</ul>;
-    } else return <div></div>;
+    } else
+      return (
+        <div>
+          <h4>You don't have any pending requests!</h4>
+        </div>
+      );
   }
 }
 
