@@ -53,7 +53,8 @@ class OfficialPage extends Component {
     }
   };
 
-  addGovOfficial = async () => {
+  addGovOfficial = async (event) => {
+    event.preventDefault();
     await this.state.GovInstance.methods
       .addGovOfficial(this.state.account, this.state.name, this.state.govID)
       .send({
@@ -66,7 +67,7 @@ class OfficialPage extends Component {
     return (
       <div>
         <NavBar />
-         <h4 style={{ textAlign: "center" }}>
+        <h4 style={{ textAlign: "center" }}>
           Account address: {this.state.account}
         </h4>
         <div className="container">
