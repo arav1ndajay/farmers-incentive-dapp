@@ -26,6 +26,7 @@ contract Policy_1 {
 
     // ID number of your policy
     uint256 policyID = 31124;
+    uint256 policyTransferAmount = 100;
 
     constructor(address _fcAddress) public {
         fc = FarmerContract(_fcAddress);
@@ -42,7 +43,7 @@ contract Policy_1 {
         (_name, _stateOfResidence, _gender, _landOwned, isVerified) = fc
             .getFarmer(_farmerAddress);
 
-        if (_landOwned < 9) return true;
+        if (_landOwned < 91) return true;
         return false;
     }
 
@@ -58,5 +59,11 @@ contract Policy_1 {
         );
     }
 
-    // execution (Transfer of money etc)
+    // Fund (To fund the smart contract)
+    function fund() external payable {}
+
+    // Execution (Transfer of money etc)
+    function action(address payable recipient) external {
+        recipient.transfer(1 ether);
+    }
 }

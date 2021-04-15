@@ -22,10 +22,10 @@ contract FarmerContract {
     }
 
     mapping(address => Farmer) public farmers;
-    address[] public farmerAccounts;
+    address payable[] public farmerAccounts;
 
     function addFarmer(
-        address _address,
+        address payable _address,
         string memory _name,
         string memory _stateOfResidence,
         string memory _gender,
@@ -43,7 +43,7 @@ contract FarmerContract {
         rc.addRole(_address, rc.farmerRoleID());
     }
 
-    function getFarmers() public view returns (address[] memory) {
+    function getFarmers() public view returns (address payable[] memory) {
         return farmerAccounts;
     }
 
