@@ -9,6 +9,8 @@ class AvailableStorages extends React.Component {
     var instance = this.props.instance;
     var account = this.props.account;
     var requestedIDs = this.props.requestedIDs;
+    var approvedIDs = this.props.approvedIDs;
+    var rentedIDs = this.props.rentedIDs;
 
     //conditions to filter
     var locationToFilter = this.props.locationToFilter.toLowerCase();
@@ -18,6 +20,8 @@ class AvailableStorages extends React.Component {
     var coldStorageList = coldStorageIDs.map(function (ID, index) {
       if (
         requestedIDs.includes(ID) == false &&
+        approvedIDs.includes(ID) == false &&
+        rentedIDs.includes(ID) == false &&
         account != coldStorageDetails[index]._ownerAddress &&
         (coldStorageDetails[index]._location
           .toLowerCase()
@@ -68,35 +72,27 @@ class AvailableStorages extends React.Component {
                 >
                   Request cold storage
                 </button>
-                <button
-                  style={{
-                    fontSize: "15px",
-                    color: "white",
-                    backgroundColor: "red",
-                  }}
-                  onClick={async () => {
-                    try {
-                      var x = await instance.methods
-                        .getRequests(ID)
-                        .call({ from: account });
-                      console.log(x);
-                    } catch (error) {
-                      alert("You are not the owner!");
-                      console.log(error);
-                    }
-                  }}
-                >
-                  Show Requests
-                </button>
               </Row>
             </ul>
           </Card>
         );
-      }
+      } else return;
     });
-    if (coldStorageList != null) {
+    let t = false;
+    for (let i = 0; i < coldStorageList.length; i++) {
+      if (typeof coldStorageList[i] != "undefined") {
+        t = true;
+      }
+    }
+
+    if (t) {
       return <ul>{coldStorageList}</ul>;
-    } else return <div></div>;
+    } else
+      return (
+        <div>
+          <h4>There are no cold storages available!</h4>
+        </div>
+      );
   }
 }
 
