@@ -14,7 +14,7 @@ window.ethereum.on("accountsChanged", () => {
   window.location.reload();
 });
 
-class ColdStoragePage extends Component {
+class BuyColdStorage extends Component {
   constructor(props) {
     super(props);
 
@@ -275,4 +275,4 @@ class ColdStoragePage extends Component {
   }
 }
 
-export default ColdStoragePage;
+export default BuyColdStorage;
