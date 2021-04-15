@@ -9,7 +9,7 @@ import "./FarmerContract.sol";
     "isEligible" to check if farmer is eligible for the contract
     "description" to determine what is to be shown on screen
     "execution" to perform desired actions on the farmer, including transfer of ETH etc.
-    
+
  Step 2
     Create the appropriate deploy script for your contract and deploy your contract.
 
@@ -25,7 +25,8 @@ contract Policy_2 {
     FarmerContract public fc;
 
     // ID number of your policy
-    uint256 policyID = 32124;
+    uint256 policyID = 12451;
+    uint256 policyTransferAmount = 100;
 
     constructor(address _fcAddress) public {
         fc = FarmerContract(_fcAddress);
@@ -42,7 +43,7 @@ contract Policy_2 {
         (_name, _stateOfResidence, _gender, _landOwned, isVerified) = fc
             .getFarmer(_farmerAddress);
 
-        if (_landOwned < 5) return true;
+        if (_landOwned < 50) return true;
         return false;
     }
 
@@ -53,10 +54,16 @@ contract Policy_2 {
         returns (string memory _description, uint256 _policyID)
     {
         return (
-            "You are eligible for Pradham mantri yojana scheme, you have land less than 5",
+            "You are eligible for Kisan yojana scheme, you have land less than 9",
             policyID
         );
     }
 
-    // execution (Transfer of money etc)
+    // Fund (To fund the smart contract)
+    function fund() external payable {}
+
+    // Execution (Transfer of money etc)
+    function action(address payable recipient) external {
+        recipient.transfer(2 ether);
+    }
 }

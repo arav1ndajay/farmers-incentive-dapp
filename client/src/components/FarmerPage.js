@@ -74,7 +74,8 @@ class FarmerPage extends Component {
     }
   };
 
-  addFarmer = async () => {
+  addFarmer = async (event) => {
+    event.preventDefault();
     await this.state.FarmerInstance.methods
       .addFarmer(
         this.state.account,
