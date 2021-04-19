@@ -309,7 +309,7 @@ class RouteHandler extends React.Component
           }
           else
           {
-            if(1==1)
+            if(this.isGovernmentOfficial())
             {
               return <ManageContracts  account = {account} web3= {web3} farmerAccounts = {this.state.data} />
             }

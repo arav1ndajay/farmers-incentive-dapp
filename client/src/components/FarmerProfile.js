@@ -1,10 +1,6 @@
 import React from "react";
 import NavBar from "./NavBar";
-import getWeb3 from "../getWeb3";
-import FarmerContract from "../contracts/FarmerContract.json";
 import { Card, ListGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import RegisteredContracts from "./RegisteredContracts";
 
 window.ethereum.on("accountsChanged", () => {
   window.location.reload();

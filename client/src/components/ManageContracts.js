@@ -1,17 +1,36 @@
-import React, { Component } from "react";
-import { Card, ListGroup } from "react-bootstrap";
-import Roles from "../contracts/Roles.json";
-import getWeb3 from "../getWeb3";
-import FarmerProfile from "./FarmerProfile";
-import FarmerContract from "../contracts/FarmerContract.json";
-import GovContract from "../contracts/GovContract.json";
-import OfficialProfile from "./OfficialProfile";
+import React from "react";
+import {Card} from "react-bootstrap";
 import RegisteredContracts from "./RegisteredContracts";
-import Login from "./login";
 import NavBar from "./NavBar";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 let farmerAccounts = [];
 
+class ArrayToCards extends React.Component {
+    render() {
+      var policies = this.props.policies;
+      const web3 = this.props.web3;
+      const account = this.props.account;
+     
+      var policyList = policies.map(function (policyObj, index) {
+            return (
+            <Col>
+                <ContractCard web3 = {web3} account = {account} 
+                abi = {policyObj[0]} deployedNetwork = {policyObj[1]} />
+            </Col>
+            );
+      });
+  
+      return (
+          <Row>
+              {policyList}
+          </Row>
+      );
+    }
+}
+
+  
 class ContractCard extends React.Component
 {
     constructor(props)
@@ -120,27 +139,7 @@ class ContractCard extends React.Component
             console.log(typeof(this.state.eligibleFarmers));
             return   (
                 <div>
-                    {/* <div className="form-control">
-                    <label>Value</label>
-                    <input
-                        type="text"
-                        placeholder="Enter Amount in wei"
-                        value={this.state.value}
-                        onChange={this.updateValue}
-                    />
-                    </div>
-                    <button className="btn"
-                    style={{ marginBottom: "30px" }}
-                    onClick = {this.fund}>
-                        Fund
-                    </button>
-
-                    <button className ="btn"style={{ marginBottom: "30px" }}
-                    onClick = {this.action}>
-                        Execute
-                    </button> */}
-
-                <Card style={{ margin: "20px" }}>
+                    <Card style={{ margin: "20px" }}>
                     <h2>Policy ID: {this.state.policyID}</h2>
                     <p>{this.state.policyDescription}</p>
                     <h4> Number of farmers eligible : {this.state.numberOfEligibleFarmers}</h4>
@@ -186,13 +185,11 @@ class ManageContracts extends React.Component
     render()
     {
         return(
+        
             <div>
             <NavBar/>
-            <div class ="Row">
-                <div class = "col-6">
-                <ContractCard web3 = {this.props.web3} account = {this.props.account} abi = {RegisteredContracts[0][0]} deployedNetwork = {RegisteredContracts[0][1]} />
-                </div>
-            </div>
+                <ArrayToCards web3 = {this.props.web3} account = {this.props.account}
+                 policies = {RegisteredContracts} />
             </div>
         );
     }
