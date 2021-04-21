@@ -113,9 +113,11 @@ class OfficialProfile extends Component {
             </div>
           )}
         </div>
+
         <Link className="btn" to="/ManageContracts">
           Manage policies
         </Link>
+
       </div>
     );
   }
