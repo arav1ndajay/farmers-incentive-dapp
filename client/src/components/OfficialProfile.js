@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 window.ethereum.on("accountsChanged", () => {
   window.location.reload();
@@ -20,7 +20,7 @@ class OfficialProfile extends Component {
       viewDetails: false,
     };
   }
-  
+
   updateAddressOfFarmer = (event) => {
     this.setState({ addressOfFarmer: event.target.value });
   };
@@ -113,7 +113,11 @@ class OfficialProfile extends Component {
             </div>
           )}
         </div>
-        <Link className ="btn" to="/ManageContracts">Manage Contracts</Link>
+
+        <Link className="btn" to="/ManageContracts">
+          Manage policies
+        </Link>
+
       </div>
     );
   }
