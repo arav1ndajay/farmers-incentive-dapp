@@ -71,18 +71,6 @@ class RouteHandler extends React.Component {
       .getFarmer(account)
       .call({ from: account });
 
-    let _policies = await instance.methods
-      .getPoliciesAvailable(account)
-      .call({ from: account });
-
-    var _policyDetails = [];
-    for (let i = 0; i < _policies.length; i++) {
-      let obj = await instance.methods
-        .getPolicy(_policies[i])
-        .call({ from: account });
-      _policyDetails.push(obj);
-    }
-
     var _policyDescriptions = [];
     for (let i = 0; i < RegisteredContracts.length; i++) {
       const deployedNetwork = RegisteredContracts[i][1];
@@ -112,8 +100,6 @@ class RouteHandler extends React.Component {
       _web3: { web3 },
       _details: { _details },
       _account: { account },
-      _policies: { _policies },
-      _policyDetails: { _policyDetails },
       _policyDescriptions: { _policyDescriptions },
     };
 
@@ -234,8 +220,6 @@ class RouteHandler extends React.Component {
               }
               landOwned={this.state.data._details._details._landOwned}
               gender={this.state.data._details._details._gender}
-              policies={this.state.data._policies._policies}
-              policyDetails={this.state.data._policyDetails._policyDetails}
               policyDescriptions={
                 this.state.data._policyDescriptions._policyDescriptions
               }

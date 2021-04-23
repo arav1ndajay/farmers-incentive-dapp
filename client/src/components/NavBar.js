@@ -8,7 +8,6 @@ const NavBar = () => {
       <Nav className="mr-auto">
         <Nav.Link href="/FarmerPage">Farmer Registration</Nav.Link>
         <Nav.Link href="/OfficialPage">Gov. Official Registration</Nav.Link>
-        <Nav.Link href="/PolicyMakerPage">Policy Maker</Nav.Link>
         <Nav.Link href="/ColdStoragePage">Cold Storage Registration</Nav.Link>
         <Nav.Link href="/BuyColdStorage">Buy Cold Storage</Nav.Link>
       </Nav>
