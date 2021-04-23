@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.4.21;
+pragma experimental ABIEncoderV2;
 
 contract ColdStorageContract {
     struct ColdStorage {
@@ -11,6 +12,8 @@ contract ColdStorageContract {
         address[] requests;
         address[] approvedRequests;
         address[] tenants;
+        mapping(string => uint256) items;
+        string[] itemNames;
     }
 
     mapping(uint256 => ColdStorage) public coldStorages;
@@ -226,4 +229,29 @@ contract ColdStorageContract {
         require(msg.sender == coldStorages[_id].ownerAddress);
         return coldStorages[_id].tenants;
     }
+
+    //function to add new item to cold storage
+    function addItem(
+        uint256 _id,
+        string memory _itemName,
+        uint256 _quantity
+    ) public {
+        coldStorages[_id].items[_itemName] = _quantity;
+        coldStorages[_id].itemNames.push(_itemName);
+    }
+
+    //function to view items
+    function getItemNames(uint256 _id) public view returns (string[] memory) {
+        return coldStorages[_id].itemNames;
+    }
+
+    function getItemQuantites(uint256 _id, string memory _itemName)
+        public
+        view
+        returns (uint256)
+    {
+        return coldStorages[_id].items[_itemName];
+    }
+
+    //function to get quantities of items
 }
