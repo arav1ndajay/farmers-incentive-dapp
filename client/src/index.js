@@ -5,7 +5,6 @@ import HomePage from "./components/HomePage";
 import FarmerPage from "./components/FarmerPage";
 import OfficialPage from "./components/OfficialPage";
 import OfficialProfile from "./components/OfficialProfile";
-import PolicyMakerPage from "./components/PolicyMakerPage";
 import FarmerProfile from "./components/FarmerProfile";
 import ColdStoragePage from "./components/ColdStoragePage";
 import Login from "./components/login";
@@ -22,7 +21,6 @@ ReactDOM.render(
         <Route exact path="/" component={HomePage} />
         <Route path="/FarmerPage" component={FarmerPage} />
         <Route path="/OfficialPage" component={OfficialPage} />
-        <Route path="/PolicyMakerPage" component={PolicyMakerPage} />
         <Route path="/Login" component={()=><RouteHandler request ="Login"/>}/>
         <Route path="/FarmerProfile" component={()=><RouteHandler request ="FarmerProfile"/>} />
         <Route path="/OfficialProfile" component={()=><RouteHandler request ="OfficialProfile"/>} />

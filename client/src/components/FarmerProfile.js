@@ -22,28 +22,6 @@ class DescToList extends React.Component {
   }
 }
 
-class ArrayToList extends React.Component {
-  render() {
-    var policies = this.props.policies;
-    var details = this.props.policyDetails;
-    var policyList = policies.map(function (policies, index) {
-      return (
-        <Card key={index} style={{ margin: "20px" }}>
-          <h2>Policy ID: {policies}</h2>
-          <ul>
-            <li>Maximum Land you can own: {details[index]._maxLandReq}</li>
-            <li>
-              Applicable for {details[index]._gender} gender and for farmers
-              residing in {details[index]._stateOfResidence}
-            </li>
-          </ul>
-        </Card>
-      );
-    });
-
-    return <ul>{policyList}</ul>;
-  }
-}
 
 class FarmerProfile extends React.Component {
   
@@ -54,10 +32,6 @@ class FarmerProfile extends React.Component {
         <div className="row">
           <div className="col-7">
             <h1>Available policies </h1>
-            <ArrayToList
-              policies={this.props.policies}
-              policyDetails={this.props.policyDetails}
-            />
             <DescToList policyDescriptions={this.props.policyDescriptions} />
           </div>
           <div className="col-5">
