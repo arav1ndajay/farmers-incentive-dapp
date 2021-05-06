@@ -3,11 +3,38 @@ import NavBar from "./NavBar";
 import { Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import AllColdStorages from "./AllColdStorages";
+import Container from 'react-bootstrap/Container';
+
 window.ethereum.on("accountsChanged", () => {
   window.location.reload();
 });
 
 var farmerDetails;
+
+
+class FarmerArraytoList extends React.Component {
+
+  // prop needed: UneligibleFarmers array
+  render()
+  {
+      var farmerArray = this.props.uneligibleFarmers;
+
+      var farmerList = farmerArray.map(
+          function (farmerArrayObj) {
+              return (
+              <li> {farmerArrayObj} </li>
+              );
+          }
+      );
+
+      return (
+          <div>
+              <h4>Ineligible Farmers List</h4>
+              <ul>{farmerList}</ul>
+          </div>
+      );
+  }
+}
 
 class OfficialProfile extends Component {
   constructor(props) {
@@ -75,7 +102,7 @@ class OfficialProfile extends Component {
       <div>
         <NavBar />
         <Row style={{ height: "95vh" }}>
-          <Col>
+          <Col xs lg="2">
             <div className="Sidebar">
               <ul className="SidebarList">
                 <li
@@ -85,7 +112,7 @@ class OfficialProfile extends Component {
                     this.setState({ viewToShow: 0 });
                   }}
                 >
-                  Farmer related
+                  Verify registration details
                 </li>
                 <li
                   className="row"
@@ -100,72 +127,25 @@ class OfficialProfile extends Component {
             </div>
           </Col>
           {this.state.viewToShow == 0 && (
-            <Col sm style={{ margin: "0px" }}>
-              <div className="container">
-                <div className="header">Farmer details page</div>
-                <h4
-                  style={{
-                    marginTop: "20px",
-                    marginBottom: "20px",
-                    fontSize: "18px",
-                  }}
-                >
-                  Please verify details of farmer before proceeding
-                </h4>
-                <form className="add-form">
-                  <div className="form-control">
-                    <label>Address of farmer</label>
-                    <input
-                      type="text"
-                      value={this.state.addressOfFarmer}
-                      onChange={this.updateAddressOfFarmer}
-                      placeholder="Enter address of farmer"
-                    />
-                  </div>
-                  <button
-                    className="btn"
-                    style={{ marginBottom: "30px" }}
-                    onClick={this.viewFarmerDetails}
-                  >
-                    View Details
-                  </button>
-                  <input
-                    type="submit"
-                    value="Set as eligible"
-                    className="btn"
-                    onClick={this.setFarmerAsEligible}
-                  />
-                </form>
-                {this.state.viewDetails === true && (
-                  <div>
-                    <h4 style={{ textAlign: "center" }}>
-                      Details of farmer {this.state.addressOfFarmer}
-                    </h4>
-                    <div style={{ textAlign: "center" }}>
-                      Name: {farmerDetails._name}
-                    </div>
-                    <div style={{ textAlign: "center" }}>
-                      Gender: {farmerDetails._gender}
-                    </div>
-                    <div style={{ textAlign: "center" }}>
-                      Land Owned: {farmerDetails._landOwned}
-                    </div>
-                    <div style={{ textAlign: "center" }}>
-                      Place of Residence: {farmerDetails._stateOfResidence}
-                    </div>
-                    <div style={{ textAlign: "center" }}>
-                      Is Eligible for Incentive:{" "}
-                      {farmerDetails._isEligible.toString()}
-                    </div>
-                  </div>
-                )}
-              </div>
+            <Col>
+              
+                 <Container>
+                   <Row>
+                  <Link className="btn mb-3" to="/ManageContracts">
+                    Manage policies
+                  </Link>
+                  </Row>
+                  <Row className = "mt-5">
+                  <Link className="btn" to="/AllActions">
+                    Verify Registration details
+                  </Link>
+                  </Row>
+                  </Container>
 
-              <Link className="btn" to="/ManageContracts">
-                Manage policies
-              </Link>
             </Col>
-          )}
+          )
+          }
+
           {this.state.viewToShow == 1 && (
             <Col sm>
               <h1 style={{ fontSize: "30px" }}>All cold storages </h1>
