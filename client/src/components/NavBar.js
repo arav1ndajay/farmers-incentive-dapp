@@ -12,7 +12,7 @@ const NavBar = () => {
         <Nav.Link href="/BuyColdStorage">Buy Cold Storage</Nav.Link>
       </Nav>
       <Nav>
-        <Nav.Link href="/login">Login</Nav.Link>
+        <Nav.Link href="/login">Profile</Nav.Link>
       </Nav>
     </Navbar>
   );

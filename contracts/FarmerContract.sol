@@ -3,10 +3,26 @@ pragma solidity >=0.4.21;
 import "./Roles.sol";
 
 contract FarmerContract {
-    Roles public rc;
+    Roles rc;
 
     constructor(address _rcAddress) public {
         rc = Roles(_rcAddress);
+    }
+
+    modifier OnlyGovernmentOfficial() {
+        require(
+            (rc.getRole(tx.origin) == rc.governmentOfficialRoleID() ||
+                rc.getRole(tx.origin) == rc.adminRoleID()),
+            "Only Gov official or admin"
+        );
+
+        _;
+    }
+
+    modifier OnlyAdmin() {
+        require(rc.getRole(tx.origin) == rc.adminRoleID(), "Only admin");
+
+        _;
     }
 
     struct Farmer {
@@ -20,6 +36,7 @@ contract FarmerContract {
 
     mapping(address => Farmer) public farmers;
     address payable[] public farmerAccounts;
+    address payable[] public unverifiedFarmerAccounts;
 
     function addFarmer(
         address payable _address,
@@ -36,12 +53,23 @@ contract FarmerContract {
         farmer.isEligible = false;
 
         farmerAccounts.push(_address);
-
-        rc.addRole(_address, rc.farmerRoleID());
     }
 
     function getFarmers() public view returns (address payable[] memory) {
         return farmerAccounts;
+    }
+
+    function getUnverifiedFarmers() public returns (address payable[] memory) {
+        delete unverifiedFarmerAccounts;
+        uint256 i = 0;
+
+        for (i = 0; i < farmerAccounts.length; i++) {
+            if (rc.getRole(farmerAccounts[i]) == 0) {
+                unverifiedFarmerAccounts.push(farmerAccounts[i]);
+            }
+        }
+
+        return unverifiedFarmerAccounts;
     }
 
     function getFarmer(address _address)
@@ -68,7 +96,8 @@ contract FarmerContract {
         return farmerAccounts.length;
     }
 
-    function setEligible(address _address) public {
+    function setEligible(address _address) public OnlyGovernmentOfficial() {
         farmers[_address].isEligible = true;
+        rc.addRole(_address, rc.farmerRoleID());
     }
 }
