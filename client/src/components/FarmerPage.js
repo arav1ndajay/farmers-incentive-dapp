@@ -6,6 +6,10 @@ import FarmerContract from "../contracts/FarmerContract.json";
 
 var policyDetails;
 
+window.ethereum.on("accountsChanged", () => {
+  window.location.reload();
+});
+
 class FarmerPage extends Component {
   constructor(props) {
     super(props);
@@ -88,6 +92,7 @@ class FarmerPage extends Component {
         from: this.state.account,
         gas: 1000000,
       });
+    window.location.reload();
   };
 
   viewPolicies = async () => {

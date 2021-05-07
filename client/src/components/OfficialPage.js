@@ -3,6 +3,10 @@ import NavBar from "./NavBar";
 import getWeb3 from "../getWeb3";
 import GovContract from "../contracts/GovContract.json";
 
+window.ethereum.on("accountsChanged", () => {
+  window.location.reload();
+});
+
 class OfficialPage extends Component {
   constructor(props) {
     super(props);
@@ -61,6 +65,7 @@ class OfficialPage extends Component {
         from: this.state.account,
         gas: 1000000,
       });
+    window.location.reload();
   };
 
   render() {

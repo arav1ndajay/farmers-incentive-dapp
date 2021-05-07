@@ -30,7 +30,11 @@ class RentedStorages extends React.Component {
   addItem = async (event) => {
     event.preventDefault();
     await this.props.instance.methods
-      .addItem(this.state.currentID, this.state.nameOfItem, this.state.quantity)
+      .addItem(
+        this.state.currentID,
+        this.state.nameOfItem.toLowerCase(),
+        this.state.quantity
+      )
       .send({
         from: this.props.account,
         gas: 1000000,
