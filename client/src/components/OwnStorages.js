@@ -41,7 +41,13 @@ class OwnStorages extends React.Component {
           parseInt(coldStorageDetails[index]._capacity) >= capacityToFilter)
       ) {
         return (
-          <Card key={index} style={{ marginBottom: "10px", maxWidth: "450px" }}>
+          <Card
+            key={index}
+            style={{
+              marginBottom: "10px",
+              maxWidth: "500px",
+            }}
+          >
             <h2>ID: {ID}</h2>
 
             <ul>

@@ -34,7 +34,7 @@ class AvailableStorages extends React.Component {
           parseInt(coldStorageDetails[index]._capacity) >= capacityToFilter)
       ) {
         return (
-          <Card key={index} style={{ marginBottom: "10px", maxWidth: "300px" }}>
+          <Card key={index} style={{ marginBottom: "10px", maxWidth: "500px" }}>
             <h2>ID: {ID}</h2>
             <h2 style={{ fontSize: "20px" }}>
               Owner's address: {coldStorageDetails[index]._ownerAddress}
