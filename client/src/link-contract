@@ -2,7 +2,8 @@
 
 cd ./components
 read -p "Enter Policy file name: " policyName
-
+read -p "Enter Policy Number: " policyNumber
+let "policyNumber += 2"
 
 ex RegisteredContracts.js <<eof
 /FLAG END OF IMPORTS/ insert
@@ -20,12 +21,12 @@ eof
 
 cd ../../../migrations
 
-echo 'var $policyName = artifacts.require("./$policyName.sol");
+echo 'var '$policyName' = artifacts.require("./'$policyName'.sol");
 var FarmerContract = artifacts.require("./FarmerContract.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy($policyName, FarmerContract.address);
+  deployer.deploy('$policyName', FarmerContract.address);
 };
-' >> "deploy_$policyName.js"
+' >> ''$policyNumber'_deploy_'$policyName'.js'
 
 #truffle migrate

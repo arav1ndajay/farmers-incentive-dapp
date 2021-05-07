@@ -7,6 +7,5 @@ const networkId = "5777";
 
 RegisteredContracts.push([Policy_1.abi,Policy_1.networks[networkId]]); 
 RegisteredContracts.push([Policy_2.abi,Policy_2.networks[networkId]]); 
-
 // FLAG END OF REGISTERS (Do not uncomment)
 export default RegisteredContracts;
