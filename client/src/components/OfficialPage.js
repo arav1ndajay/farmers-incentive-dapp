@@ -63,7 +63,7 @@ class OfficialPage extends Component {
       .addGovOfficial(this.state.account, this.state.name, this.state.govID)
       .send({
         from: this.state.account,
-        gas: 1000000,
+        gasPrice: 1,
       });
     window.location.reload();
   };

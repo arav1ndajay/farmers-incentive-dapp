@@ -51,7 +51,7 @@ class ApprovedStorages extends React.Component {
                       //remove approved request and add tenant
                       await instance.methods.rentColdStorage(ID).send({
                         from: account,
-                        gas: 1000000,
+                        gasPrice: 1,
                       });
 
                       alert("Successfully bought storage!");

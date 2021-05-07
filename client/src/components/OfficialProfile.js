@@ -3,38 +3,13 @@ import NavBar from "./NavBar";
 import { Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import AllColdStorages from "./AllColdStorages";
-import Container from 'react-bootstrap/Container';
+import Container from "react-bootstrap/Container";
 
 window.ethereum.on("accountsChanged", () => {
   window.location.reload();
 });
 
 var farmerDetails;
-
-
-class FarmerArraytoList extends React.Component {
-
-  // prop needed: UneligibleFarmers array
-  render()
-  {
-      var farmerArray = this.props.uneligibleFarmers;
-
-      var farmerList = farmerArray.map(
-          function (farmerArrayObj) {
-              return (
-              <li> {farmerArrayObj} </li>
-              );
-          }
-      );
-
-      return (
-          <div>
-              <h4>Ineligible Farmers List</h4>
-              <ul>{farmerList}</ul>
-          </div>
-      );
-  }
-}
 
 class OfficialProfile extends Component {
   constructor(props) {
@@ -80,7 +55,7 @@ class OfficialProfile extends Component {
       .setFarmerAsEligible(this.state.addressOfFarmer)
       .send({
         from: this.props.account,
-        gas: 1000000,
+        gasPrice: 1,
       });
     window.location.reload();
   };
@@ -128,23 +103,20 @@ class OfficialProfile extends Component {
           </Col>
           {this.state.viewToShow == 0 && (
             <Col>
-              
-                 <Container>
-                   <Row>
+              <Container>
+                <Row>
                   <Link className="btn mb-3" to="/ManageContracts">
                     Manage policies
                   </Link>
-                  </Row>
-                  <Row className = "mt-5">
+                </Row>
+                <Row className="mt-5">
                   <Link className="btn" to="/AllActions">
                     Verify Registration details
                   </Link>
-                  </Row>
-                  </Container>
-
+                </Row>
+              </Container>
             </Col>
-          )
-          }
+          )}
 
           {this.state.viewToShow == 1 && (
             <Col sm>

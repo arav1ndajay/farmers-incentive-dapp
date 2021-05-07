@@ -90,7 +90,7 @@ class FarmerPage extends Component {
       )
       .send({
         from: this.state.account,
-        gas: 1000000,
+        gasPrice: 1,
       });
     window.location.reload();
   };

@@ -166,7 +166,7 @@ class OwnStorages extends React.Component {
                                   .approveColdStorage(ID, req)
                                   .send({
                                     from: account,
-                                    gas: 1000000,
+                                    gasPrice: 1,
                                   });
 
                                 alert("Request has been approved!");

@@ -58,7 +58,7 @@ class AvailableStorages extends React.Component {
                       console.log(typeof account);
                       await instance.methods.requestColdStorage(ID).send({
                         from: account,
-                        gas: 1000000,
+                        gasPrice: 1,
                       });
                       alert("Request has been placed!");
                       window.location.reload();
