@@ -1,14 +1,17 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown} from "react-bootstrap";
 
 const NavBar = () => {
   return (
-    <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href="/">Farmer DaPP</Navbar.Brand>
+    <Navbar collapseOnSelect bg="dark" variant="dark" fixed = "top">
+      <Navbar.Brand href="/">Farmicy</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href="/FarmerPage">Farmer Registration</Nav.Link>
-        <Nav.Link href="/OfficialPage">Gov. Official Registration</Nav.Link>
-        <Nav.Link href="/ColdStoragePage">Cold Storage Registration</Nav.Link>
+      <NavDropdown title="Registration" id="basic-nav-dropdown">
+        <NavDropdown.Item href="/FarmerPage">Farmer</NavDropdown.Item>
+        <NavDropdown.Item href="/OfficialPage">Government Official </NavDropdown.Item>
+        <NavDropdown.Item href="/ColdStoragePage">Cold Storage</NavDropdown.Item>
+        
+      </NavDropdown>
         <Nav.Link href="/BuyColdStorage">Buy Cold Storage</Nav.Link>
       </Nav>
       <Nav>
