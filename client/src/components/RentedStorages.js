@@ -37,7 +37,7 @@ class RentedStorages extends React.Component {
       )
       .send({
         from: this.props.account,
-        gas: 1000000,
+        gasPrice: 1,
       });
     window.location.reload();
   };

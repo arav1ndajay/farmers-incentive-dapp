@@ -96,7 +96,7 @@ class ColdStoragePage extends Component {
         )
         .send({
           from: this.state.account,
-          gas: 1000000,
+          gasPrice: 1,
         });
       alert("Successfully registered!");
       window.location.reload();

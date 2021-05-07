@@ -34,7 +34,7 @@ class RequestedStorages extends React.Component {
                     try {
                       await instance.methods.removeRequest(account, ID).send({
                         from: account,
-                        gas: 1000000,
+                        gasPrice: 1,
                       });
                       alert("Request has been removed!");
                       window.location.reload();
