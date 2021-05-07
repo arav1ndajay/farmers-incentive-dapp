@@ -80,7 +80,8 @@ body > #root > div {
 
 .Sidebar {
   height: 100%;
-  width: 150px;
+  width: 100%;
+  max-width: 175px;
   background-color: #f78d51;
 }
 
@@ -97,6 +98,7 @@ body > #root > div {
   font-size: 20px;
   margin: 0%;
   color: white;
+  padding-left: 10px;
   align-items: center;
 }
 

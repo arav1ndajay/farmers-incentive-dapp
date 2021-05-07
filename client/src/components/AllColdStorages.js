@@ -4,6 +4,7 @@ import "../App.css";
 import { Card, Row } from "react-bootstrap";
 
 var list;
+var totalList;
 
 class AllColdStorages extends React.Component {
   constructor(props) {
@@ -67,8 +68,10 @@ class AllColdStorages extends React.Component {
                   onClick={async () => {
                     await this.setState({ currentID: ID });
 
+                    list = [];
                     this.setState({
                       showItemList: !this.state.showItemList,
+                      itemQuantities: [],
                     });
                     var _itemNames = await instance.methods
                       .getItemNames(this.state.currentID)
@@ -126,9 +129,12 @@ class AllColdStorages extends React.Component {
               backgroundColor: "red",
             }}
             onClick={async () => {
+              console.log(this.state.allItems);
               this.setState({
                 showTotalItemsList: !this.state.showTotalItemsList,
+                allItemQuantities: [],
               });
+              totalList = [];
 
               for (let i = 0; i < coldStorageIDs.length; i++) {
                 var _itemNames = await instance.methods
@@ -162,14 +168,14 @@ class AllColdStorages extends React.Component {
                   }
                 }
               }
-              list = this.state.allItems.map((n, index) => {
+              totalList = this.state.allItems.map((n, index) => {
                 return (
                   <li key={index}>
                     {n} : {this.state.allItemQuantities[index]} Kgs
                   </li>
                 );
               });
-              if (list.length == 0) list = <li>No items stored!</li>;
+              if (totalList.length == 0) totalList = <li>No items stored!</li>;
               this.setState({ itemNames: _itemNames });
 
               console.log(this.state.allItems);
@@ -182,7 +188,7 @@ class AllColdStorages extends React.Component {
           </button>
           {this.state.showTotalItemsList === true && (
             <Row>
-              <ul>{list}</ul>
+              <ul>{totalList}</ul>
             </Row>
           )}
         </div>

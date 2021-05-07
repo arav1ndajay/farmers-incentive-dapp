@@ -148,7 +148,7 @@ class BuyColdStorage extends Component {
       <div>
         <NavBar />
         <Row style={{ height: "95vh" }}>
-          <Col>
+          <Col style={{ maxWidth: "175px" }}>
             <div className="Sidebar">
               <ul className="SidebarList">
                 <li
@@ -182,8 +182,18 @@ class BuyColdStorage extends Component {
             </div>
           </Col>
           {this.state.viewToShow == 0 && (
-            <Col sm style={{ margin: "0px" }}>
-              <h1 style={{ fontSize: "30px" }}>Available cold storages </h1>
+            <Col
+              sm
+              style={{
+                marginLeft: "20px",
+                alignItems: "center",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <h1 style={{ fontSize: "30px", alignItems: "center" }}>
+                Available cold storages
+              </h1>
               <AvailableStorages
                 coldStorageIDs={this.state.coldStorageIDs}
                 coldStorageDetails={this.state.coldStorageDetails}
@@ -199,7 +209,15 @@ class BuyColdStorage extends Component {
             </Col>
           )}
           {this.state.viewToShow == 1 && (
-            <Col sm>
+            <Col
+              sm
+              style={{
+                marginLeft: "20px",
+                alignItems: "center",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
               <h1 style={{ fontSize: "30px" }}>Requested cold storages </h1>
               <RequestedStorages
                 requestedIDs={this.state.requestedIDs}
@@ -218,7 +236,15 @@ class BuyColdStorage extends Component {
             </Col>
           )}
           {this.state.viewToShow == 2 && (
-            <Col sm>
+            <Col
+              sm
+              style={{
+                marginLeft: "20px",
+                alignItems: "center",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
               <h1 style={{ fontSize: "30px" }}>Own storages </h1>
               <OwnStorages
                 coldStorageIDs={this.state.coldStorageIDs}
