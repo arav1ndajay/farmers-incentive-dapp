@@ -21,7 +21,7 @@ class OfficialPage extends Component {
   }
 
   componentDidMount = async () => {
-    //Refresh page only once
+    //Refresh page only once ok
     if (!window.location.hash) {
       window.location = window.location + "#loaded";
       window.location.reload();
