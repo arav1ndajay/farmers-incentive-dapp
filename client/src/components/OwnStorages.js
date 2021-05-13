@@ -239,7 +239,7 @@ class OwnStorages extends React.Component {
         <div>
           <h4>You don't own any storages!</h4>
         </div>
-      );
+      ); // yes this works
   }
 }
 
