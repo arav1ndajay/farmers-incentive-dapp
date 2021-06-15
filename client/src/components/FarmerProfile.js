@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "./NavBar";
+import NavBar from "./Navbar/NavBar";
 import { Card, ListGroup } from "react-bootstrap";
 
 window.ethereum.on("accountsChanged", () => {
@@ -22,9 +22,7 @@ class DescToList extends React.Component {
   }
 }
 
-
 class FarmerProfile extends React.Component {
-  
   render() {
     return (
       <div>
@@ -39,7 +37,7 @@ class FarmerProfile extends React.Component {
               <Card.Body>
                 <Card.Title>Profile</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
-                  Farmer 
+                  Farmer
                 </Card.Subtitle>
                 <ListGroup variant="flush">
                   <ListGroup.Item>Name : {this.props.name}</ListGroup.Item>

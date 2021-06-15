@@ -2,14 +2,14 @@ import React from "react";
 import Roles from "../contracts/Roles.json";
 import getWeb3 from "../getWeb3";
 import FarmerProfile from "./FarmerProfile";
+import { OfficialProfile } from "./OfficialProfile";
 import FarmerContract from "../contracts/FarmerContract.json";
 import GovContract from "../contracts/GovContract.json";
 import ColdStorageContract from "../contracts/ColdStorageContract.json";
-import OfficialProfile from "./OfficialProfile";
 import RegisteredContracts from "./RegisteredContracts";
 import ManageContracts from "./ManageContracts";
 import AllActions from "./AllActions";
-import Login from "./login";
+import { Login } from "./login";
 
 window.ethereum.on("accountsChanged", () => {
   window.location.reload();
@@ -95,7 +95,9 @@ class RouteHandler extends React.Component {
         _policyDescriptions.push(desc);
       }
     }
-    const _uneligibleFarmers = await instance.methods.getUnverifiedFarmers().call();
+    const _uneligibleFarmers = await instance.methods
+      .getUnverifiedFarmers()
+      .call();
 
     const obj = {
       _FarmerInstance: { instance },
@@ -103,7 +105,7 @@ class RouteHandler extends React.Component {
       _details: { _details },
       _account: { account },
       _policyDescriptions: { _policyDescriptions },
-      _uneligibleFarmers: _uneligibleFarmers
+      _uneligibleFarmers: _uneligibleFarmers,
     };
 
     return obj;
@@ -140,9 +142,13 @@ class RouteHandler extends React.Component {
       coldStorageDetails.push(obj);
     }
 
-    const _uneligibleFarmers = await farmerInstance.methods.getUnverifiedFarmers().call();
-    
-    const _uneligibleOfficials = await govInstance.methods.getUnverifiedOfficials().call();
+    const _uneligibleFarmers = await farmerInstance.methods
+      .getUnverifiedFarmers()
+      .call();
+
+    const _uneligibleOfficials = await govInstance.methods
+      .getUnverifiedOfficials()
+      .call();
 
     const obj = {
       _ColdStorageInstance: cold_instance,
@@ -153,7 +159,7 @@ class RouteHandler extends React.Component {
       _coldStorageDetails: coldStorageDetails,
       _coldStorageIDs: coldStorageIDs,
       _uneligibleFarmers: _uneligibleFarmers,
-      _uneligibleOfficials: _uneligibleOfficials
+      _uneligibleOfficials: _uneligibleOfficials,
     };
 
     return obj;
@@ -174,51 +180,37 @@ class RouteHandler extends React.Component {
 
   componentWillMount() {
     this.getGeneralDetails().then(() => {
-      if (this.props.request === "ManageContracts") 
-      {
-
+      if (this.props.request === "ManageContracts") {
         this.getFarmerArray().then((result) => {
           this.setState({ data: result });
 
           if (this.state.data != undefined) this.setState({ loading: false });
         });
-
-      }
-
-      else if (this.isFarmer() && this.props.request === "FarmerProfile")
-      {
-
+      } else if (this.isFarmer() && this.props.request === "FarmerProfile") {
         this.getFarmerDetails().then((result) => {
           this.setState({ data: result });
 
           if (this.state.data != undefined) this.setState({ loading: false });
         });
-
-      } 
-
-      else if (
+      } else if (
         this.isGovernmentOfficial() &&
         this.props.request === "OfficialProfile"
-      ) 
-      {
+      ) {
         this.getGovernmentOfficialDetails().then((result) => {
           this.setState({ data: result });
 
           if (this.state.data != undefined) this.setState({ loading: false });
         });
-      } 
-
-      else if( (this.isGovernmentOfficial() || this.isAdmin()) && this.props.request === "AllActions")
-      {
+      } else if (
+        (this.isGovernmentOfficial() || this.isAdmin()) &&
+        this.props.request === "AllActions"
+      ) {
         this.getGovernmentOfficialDetails().then((result) => {
           this.setState({ data: result });
 
           if (this.state.data != undefined) this.setState({ loading: false });
         });
-      }
-
-      else 
-      {
+      } else {
         this.setState({ loading: false });
       }
     });
@@ -282,13 +274,10 @@ class RouteHandler extends React.Component {
         if (this.isGovernmentOfficial() == true) {
           return (
             <OfficialProfile
-              web3={this.state.data._web3}
               account={this.state.data._account}
-              FarmerInstance={this.state.data._GovInstance}
-              ColdStorageInstance={this.state.data._ColdStorageInstance}
+              coldStorageInstance={this.state.data._ColdStorageInstance}
               coldStorageIDs={this.state.data._coldStorageIDs}
               coldStorageDetails={this.state.data._coldStorageDetails}
-              uneligibleFarmers = {this.state.data._uneligibleFarmers}
             />
           );
         } else {
@@ -302,8 +291,7 @@ class RouteHandler extends React.Component {
       }
     } else if (this.props.request === "Login") {
       return <Login roleID={this.state.roleId} />;
-    } 
-    else if (this.props.request === "ManageContracts") {
+    } else if (this.props.request === "ManageContracts") {
       if (this.isLoading()) {
         return <h1>Loading</h1>;
       } else {
@@ -324,35 +312,30 @@ class RouteHandler extends React.Component {
           );
         }
       }
-    }
-    else if (this.props.request === "AllActions")
-    {
-        if (this.isLoading()) {
-          return <h1>Loading</h1>;
-        } 
-        else 
-        {
-          if (this.isGovernmentOfficial() || this.isAdmin()) {
-            console.log(this.state.data);
-            return (
-              <AllActions
-                account={account}
-                uneligibleFarmers = {this.state.data._uneligibleFarmers}
-                farmerInstance = {this.state.data._FarmerInstance}
-                govInstance = {this.state.data._GovInstance}
-
-                uneligibleOfficials = {this.state.data._uneligibleOfficials}
-              />
-            );
-          } else {
-            return (
-              <div>
-                <h2>Not authenticated</h2>
-                <a href="/">Home</a>
-              </div>
-            );
-          }
+    } else if (this.props.request === "AllActions") {
+      if (this.isLoading()) {
+        return <h1>Loading</h1>;
+      } else {
+        if (this.isGovernmentOfficial() || this.isAdmin()) {
+          console.log(this.state.data);
+          return (
+            <AllActions
+              account={account}
+              uneligibleFarmers={this.state.data._uneligibleFarmers}
+              farmerInstance={this.state.data._FarmerInstance}
+              govInstance={this.state.data._GovInstance}
+              uneligibleOfficials={this.state.data._uneligibleOfficials}
+            />
+          );
+        } else {
+          return (
+            <div>
+              <h2>Not authenticated</h2>
+              <a href="/">Home</a>
+            </div>
+          );
         }
+      }
     }
   }
 }

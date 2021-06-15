@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import RegisteredContracts from "./RegisteredContracts";
-import NavBar from "./NavBar";
+import NavBar from "./Navbar/NavBar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 

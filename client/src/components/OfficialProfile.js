@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import NavBar from "./NavBar";
+import React, { useState } from "react";
+import NavBar from "./Navbar/NavBar";
 import { Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import AllColdStorages from "./AllColdStorages";
@@ -9,163 +9,109 @@ window.ethereum.on("accountsChanged", () => {
   window.location.reload();
 });
 
-var farmerDetails;
+export const OfficialProfile = ({
+  account,
+  coldStorageInstance,
+  coldStorageIDs,
+  coldStorageDetails,
+}) => {
+  const [viewToShow, setViewToShow] = useState(0);
 
-class OfficialProfile extends Component {
-  constructor(props) {
-    super(props);
+  const [priceToFilter, setPriceToFilter] = useState(0);
+  const [locationToFilter, setLocationToFilter] = useState("");
+  const [capacityToFilter, setCapacityToFilter] = useState(0);
 
-    this.state = {
-      // FarmerInstance: undefined,
-      // ColdStorageInstance: undefined,
-      account: null,
-      web3: null,
-      addressOfFarmer: 0,
-      viewDetails: false,
-      viewToShow: 0,
-      priceToFilter: 0,
-      locationToFilter: "",
-      capacityToFilter: 0,
-    };
-  }
-
-  updateAddressOfFarmer = (event) => {
-    this.setState({ addressOfFarmer: event.target.value });
-  };
-
-  viewFarmerDetails = async (event) => {
-    event.preventDefault();
-    try {
-      farmerDetails = await this.props.FarmerInstance.methods
-        .getFarmerDetails(this.state.addressOfFarmer)
-        .call({ from: this.props.account });
-
-      console.log(farmerDetails);
-      this.setState({ viewDetails: true });
-    } catch (error) {
-      this.setState({ viewDetails: false });
-      alert("Invalid address, please try again!");
-      console.error(error);
-    }
-  };
-
-  setFarmerAsEligible = async (event) => {
-    event.preventDefault();
-    await this.props.FarmerInstance.methods
-      .setFarmerAsEligible(this.state.addressOfFarmer)
-      .send({
-        from: this.props.account,
-        gasPrice: 1,
-      });
-    window.location.reload();
-  };
-
-  updateLocationToFilter = (event) => {
-    this.setState({ locationToFilter: event.target.value });
-  };
-
-  updatePriceToFilter = (event) => {
-    this.setState({ priceToFilter: event.target.value });
-  };
-
-  updateCapacityToFilter = (event) => {
-    this.setState({ capacityToFilter: event.target.value });
-  };
-
-  render() {
-    return (
-      <div>
-        <NavBar />
-        <Row style={{ height: "95vh" }}>
-          <Col xs lg="2">
-            <div className="Sidebar">
-              <ul className="SidebarList">
-                <li
-                  className="row"
-                  id={this.state.viewToShow == 0 ? "active" : ""}
-                  onClick={() => {
-                    this.setState({ viewToShow: 0 });
-                  }}
-                >
-                  Verify registration details
-                </li>
-                <li
-                  className="row"
-                  id={this.state.viewToShow == 1 ? "active" : ""}
-                  onClick={() => {
-                    this.setState({ viewToShow: 1 });
-                  }}
-                >
-                  Cold storage related
-                </li>
-              </ul>
-            </div>
+  return (
+    <div>
+      <NavBar />
+      <Row style={{ height: "95vh" }}>
+        <Col xs lg="2">
+          <div className="Sidebar">
+            <ul className="SidebarList">
+              <li
+                className="row"
+                id={viewToShow == 0 ? "active" : ""}
+                onClick={() => {
+                  setViewToShow(0);
+                }}
+              >
+                Verify registration details
+              </li>
+              <li
+                className="row"
+                id={viewToShow == 1 ? "active" : ""}
+                onClick={() => {
+                  setViewToShow(1);
+                }}
+              >
+                Cold storage related
+              </li>
+            </ul>
+          </div>
+        </Col>
+        {viewToShow == 0 && (
+          <Col>
+            <Container>
+              <Row>
+                <Link className="btn mb-3" to="/ManageContracts">
+                  Manage policies
+                </Link>
+              </Row>
+              <Row className="mt-5">
+                <Link className="btn" to="/AllActions">
+                  Verify Registration details
+                </Link>
+              </Row>
+            </Container>
           </Col>
-          {this.state.viewToShow == 0 && (
-            <Col>
-              <Container>
-                <Row>
-                  <Link className="btn mb-3" to="/ManageContracts">
-                    Manage policies
-                  </Link>
-                </Row>
-                <Row className="mt-5">
-                  <Link className="btn" to="/AllActions">
-                    Verify Registration details
-                  </Link>
-                </Row>
-              </Container>
-            </Col>
-          )}
+        )}
 
-          {this.state.viewToShow == 1 && (
-            <Col sm>
-              <h1 style={{ fontSize: "30px" }}>All cold storages </h1>
-              <AllColdStorages
-                coldStorageIDs={this.props.coldStorageIDs}
-                coldStorageDetails={this.props.coldStorageDetails}
-                instance={this.props.ColdStorageInstance}
-                account={this.state.account}
-                locationToFilter={this.state.locationToFilter}
-                capacityToFilter={this.state.capacityToFilter}
-                priceToFilter={this.state.priceToFilter}
-              />
-            </Col>
-          )}
+        {viewToShow == 1 && (
           <Col sm>
-            <form className="add-form" style={{ maxWidth: "500px" }}>
-              <div className="form-control">
-                <label>Filter by price</label>
-                <input
-                  type="number"
-                  placeholder="Enter upper limit on price"
-                  value={this.state.priceToFilter}
-                  onChange={this.updatePriceToFilter}
-                />
-              </div>
-              <div className="form-control">
-                <label>Filter by capacity</label>
-                <input
-                  type="number"
-                  placeholder="Enter required capacity"
-                  value={this.state.capacityToFilter}
-                  onChange={this.updateCapacityToFilter}
-                />
-              </div>
-              <div className="form-control">
-                <label>Filter by location</label>
-                <input
-                  type="text"
-                  placeholder="Enter specific location"
-                  value={this.state.locationToFilter}
-                  onChange={this.updateLocationToFilter}
-                />
-              </div>
-            </form>
+            <h1 style={{ fontSize: "30px" }}>All cold storages </h1>
+            <AllColdStorages
+              coldStorageIDs={coldStorageIDs}
+              coldStorageDetails={coldStorageDetails}
+              instance={coldStorageInstance}
+              account={account}
+              locationToFilter={locationToFilter}
+              capacityToFilter={capacityToFilter}
+              priceToFilter={priceToFilter}
+            />
           </Col>
-        </Row>
-      </div>
-    );
-  }
-}
-export default OfficialProfile;
+        )}
+        <Col sm>
+          <form className="add-form" style={{ maxWidth: "500px" }}>
+            <div className="form-control">
+              <label>Filter by price</label>
+              <input
+                type="number"
+                placeholder="Enter upper limit on price"
+                value={priceToFilter}
+                onChange={(e) => setPriceToFilter(e.target.value)}
+              />
+            </div>
+            <div className="form-control">
+              <label>Filter by capacity</label>
+              <input
+                type="number"
+                placeholder="Enter required capacity"
+                value={capacityToFilter}
+                onChange={(e) => setCapacityToFilter(e.target.value)}
+              />
+            </div>
+            <div className="form-control">
+              <label>Filter by location</label>
+              <input
+                type="text"
+                placeholder="Enter specific location"
+                value={locationToFilter}
+                onChange={(e) => setLocationToFilter(e.target.value)}
+              />
+            </div>
+          </form>
+        </Col>
+      </Row>
+    </div>
+  );
+};
