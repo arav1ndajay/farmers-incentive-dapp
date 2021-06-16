@@ -2,7 +2,7 @@ import { styled } from "../../utils/theme";
 import { Link as LinkR } from "react-router-dom";
 
 export const Nav = styled("nav", {
-  background: "#000",
+  background: "$primary",
   height: "80px",
   //marginTop: '-80px',
   display: "flex",
@@ -90,6 +90,8 @@ export const NavMenuItem = styled("li", {
   alignItems: "center",
   justifyContent: "center",
   textDecoration: "none",
+  marginLeft: 2,
+  marginRight: 2,
 });
 
 export const NavLinks = styled(LinkR, {
@@ -100,9 +102,10 @@ export const NavLinks = styled(LinkR, {
   padding: "0 1rem",
   height: "100%",
   cursor: "pointer",
+  transition: "0.2s ease",
 
   "&.active": {
-    borderBottom: "3px solid #01bf71",
+    borderBottom: "3px solid $secondary",
   },
 
   "&:hover": {
@@ -110,5 +113,37 @@ export const NavLinks = styled(LinkR, {
     textDecoration: "none",
     transform: "scale(1.1)",
     transition: "0.2s ease",
+  },
+});
+
+export const NavBtn = styled("nav", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+
+  "@bp2": {
+    display: "none",
+  },
+});
+
+export const NavBtnLink = styled(LinkR, {
+  borderRadius: "20px",
+  background: "$secondary",
+  whiteSpace: "nowrap",
+  padding: "10px 20px",
+  color: "$darkGrey",
+  fontSize: "16px",
+  outline: "none",
+  border: "none",
+  cursor: "pointer",
+  transition: "all 0.1s ease-in-out",
+  textDecoration: "none",
+
+  "&:hover": {
+    transform: "scale(1.1)",
+    transition: "all 0.1s ease-in-out",
+    textDecoration: "none",
+    background: "#fff",
+    color: "$darkGrey",
   },
 });

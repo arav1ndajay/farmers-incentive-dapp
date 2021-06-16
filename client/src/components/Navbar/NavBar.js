@@ -7,10 +7,12 @@ import {
   NavMenu,
   NavMenuItem,
   NavLinks,
+  NavBtn,
+  NavBtnLink,
 } from "./NavbarStyled";
 import { MenuOutline } from "@styled-icons/evaicons-outline";
 
-const NavBar = () => {
+const NavBar = ({ toggle }) => {
   return (
     // <Navbar collapseOnSelect bg="dark" variant="dark">
     //   <Navbar.Brand href="/">Farmicy</Navbar.Brand>
@@ -33,7 +35,7 @@ const NavBar = () => {
     <Nav>
       <NavLogo to="/">Farmicy</NavLogo>
       <NavbarContainer>
-        <NavIcon>
+        <NavIcon onClick={toggle}>
           <MenuOutline />
         </NavIcon>
         <NavMenu>
@@ -51,6 +53,9 @@ const NavBar = () => {
           </NavMenuItem>
         </NavMenu>
       </NavbarContainer>
+      <NavBtn>
+        <NavBtnLink to="/login">Profile</NavBtnLink>
+      </NavBtn>
     </Nav>
   );
 };
