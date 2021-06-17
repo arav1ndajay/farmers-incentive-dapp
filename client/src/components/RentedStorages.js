@@ -10,20 +10,6 @@ export const RentedStorages = ({
   instance,
   account,
 }) => {
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     showAddItemForm: false,
-  //     showItemList: false,
-  //     nameOfItem: "",
-  //     quantity: 0,
-  //     currentID: null,
-  //     itemNames: [],
-  //     itemQuantities: [],
-  //   };
-  // }
-
   const [nameOfItem, setNameOfItem] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [showItemList, setShowItemList] = useState(false);

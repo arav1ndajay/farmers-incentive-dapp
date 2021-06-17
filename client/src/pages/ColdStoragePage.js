@@ -4,32 +4,37 @@ import "../App.css";
 import getWeb3 from "../getWeb3";
 import ColdStorageContract from "../contracts/ColdStorageContract.json";
 
+import { selectAccount } from "../redux/account/accountSlice";
+import { useSelector } from "react-redux";
+
 window.ethereum.on("accountsChanged", () => {
   window.location.reload();
 });
 
 export const ColdStoragePage = () => {
+  const account = useSelector(selectAccount);
+
   const [coldStorageInstance, setColdStorageInstance] = useState();
   const [ownerName, setOwnerName] = useState("");
   const [location, setLocation] = useState("");
   const [capacity, setCapacity] = useState(0);
   const [coldStorageID, setColdStorageID] = useState(0);
   const [price, setPrice] = useState(0);
-  const [account, setAccount] = useState(null);
+  //const [account, setAccount] = useState(null);
 
   useEffect(() => {
-    //Refresh page only once
-    if (!window.location.hash) {
-      window.location = window.location + "#loaded";
-      window.location.reload();
-    }
+    // //Refresh page only once
+    // if (!window.location.hash) {
+    //   window.location = window.location + "#loaded";
+    //   window.location.reload();
+    // }
     const initialize = async () => {
       try {
         // Get network provider and web3 instance.
         const web3 = await getWeb3();
 
         // Use web3 to get the user's accounts.
-        const accounts = await web3.eth.getAccounts();
+        //const accounts = await web3.eth.getAccounts();
 
         // Get the contract instance.
         const networkId = await web3.eth.net.getId();
@@ -40,7 +45,7 @@ export const ColdStoragePage = () => {
         );
 
         setColdStorageInstance(instance);
-        setAccount(accounts[0]);
+        //setAccount(accounts[0]);
       } catch (error) {
         // Catch any errors for any of the above operations.
         alert(

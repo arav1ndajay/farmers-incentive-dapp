@@ -13,7 +13,7 @@ class FarmerForm extends React.Component {
     this.state = {
       viewDetails: false,
       farmerDetails: undefined,
-      addressOfFarmer: undefined,
+      addressOfFarmer: "",
     };
   }
 
@@ -203,7 +203,7 @@ class FarmerArraytoList extends React.Component {
     var farmerArray = this.props.uneligibleFarmers;
 
     var farmerList = farmerArray.map(function (farmerArrayObj) {
-      return <li> {farmerArrayObj} </li>;
+      return <li key={farmerArrayObj}> {farmerArrayObj} </li>;
     });
 
     return (
@@ -274,8 +274,6 @@ class OfficialActions extends React.Component {
 
 class AllActions extends React.Component {
   render() {
-    console.log("Gov instance is ");
-    console.log(this.props.govInstance);
     return (
       <div>
         <NavBar />

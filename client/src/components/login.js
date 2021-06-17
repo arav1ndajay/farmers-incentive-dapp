@@ -12,24 +12,24 @@ export const Login = ({ roleID }) => {
     return <Redirect to="/OfficialProfile" />;
   } else if (roleID == 3) {
     return <Redirect to="/AllActions" />;
-  }
-  return (
-    <div>
-      <NavBar />
-      {roleID == 0 && (
-        <Container>
-          <h3>
-            You have not registered, please register to acces your profile
-          </h3>
-          <h4>
-            If you have already registered, your registration form is still
-            under the verification process. Please try again after some time.
-          </h4>
-          <Link to="/" className="btn">
-            Home
-          </Link>
-        </Container>
-      )}
-    </div>
-  );
+  } else
+    return (
+      <div>
+        <NavBar />
+        {roleID == 0 && (
+          <Container>
+            <h3>
+              You have not registered, please register to access your profile
+            </h3>
+            <h4>
+              If you have already registered, your registration form is still
+              under the verification process. Please try again after some time.
+            </h4>
+            <Link to="/" className="btn">
+              Home
+            </Link>
+          </Container>
+        )}
+      </div>
+    );
 };

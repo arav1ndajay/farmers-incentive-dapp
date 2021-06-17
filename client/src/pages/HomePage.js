@@ -13,8 +13,9 @@ export const HomePage = () => {
 
   return (
     <div>
-      <Sidebar isOpen={isOpen} toggle={toggle} />
+      {/* <Sidebar isOpen={isOpen} toggle={toggle} /> */}
       <NavBar toggle={toggle} />
+      <div>Welcome to home page!</div>
     </div>
   );
 };

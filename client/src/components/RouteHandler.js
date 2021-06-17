@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Roles from "../contracts/Roles.json";
-import getWeb3 from "../getWeb3";
 import FarmerProfile from "./FarmerProfile";
 import { OfficialProfile } from "./OfficialProfile";
 import FarmerContract from "../contracts/FarmerContract.json";
@@ -11,34 +10,25 @@ import ManageContracts from "./ManageContracts";
 import AllActions from "./AllActions";
 import { Login } from "./login";
 
+import { selectAccount, selectWeb3 } from "../redux/account/accountSlice";
+import { useSelector } from "react-redux";
+
 window.ethereum.on("accountsChanged", () => {
   window.location.reload();
 });
 
-let web3, account, networkId;
+let networkId;
 
-class RouteHandler extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      roleId: undefined,
-      data: undefined,
-      loading: true,
-    };
-  }
+export const RouteHandler = ({ request }) => {
+  const account = useSelector(selectAccount);
+  const web3 = useSelector(selectWeb3);
 
-  async getGeneralDetails() {
-    if (!window.location.hash) {
-      window.location = window.location + "#loaded";
-      window.location.reload();
-    }
+  const [roleId, setRoleId] = useState();
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
 
+  const getRole = async () => {
     try {
-      web3 = await getWeb3();
-
-      const accounts = await web3.eth.getAccounts();
-      account = accounts[0];
-
       networkId = await web3.eth.net.getId();
 
       const deployedNetwork = Roles.networks[networkId];
@@ -49,18 +39,17 @@ class RouteHandler extends React.Component {
       );
 
       var _roleId = await instance.methods
-        .getRole(accounts[0])
-        .call({ from: accounts[0] });
-      this.setState({
-        roleId: _roleId,
-      });
+        .getRole(account)
+        .call({ from: account });
+
+      setRoleId(_roleId);
     } catch (error) {
       alert(`Error while collecting General details`);
       console.error(error);
     }
-  }
+  };
 
-  async getFarmerDetails() {
+  const getFarmerDetails = async () => {
     const deployedNetwork = FarmerContract.networks[networkId];
 
     const instance = new web3.eth.Contract(
@@ -100,18 +89,15 @@ class RouteHandler extends React.Component {
       .call();
 
     const obj = {
-      _FarmerInstance: { instance },
-      _web3: { web3 },
       _details: { _details },
-      _account: { account },
       _policyDescriptions: { _policyDescriptions },
       _uneligibleFarmers: _uneligibleFarmers,
     };
 
     return obj;
-  }
+  };
 
-  async getGovernmentOfficialDetails() {
+  const getGovernmentOfficialDetails = async () => {
     const deployedNetwork1 = GovContract.networks[networkId];
     const deployedNetwork2 = ColdStorageContract.networks[networkId];
     const deployedNetwork3 = FarmerContract.networks[networkId];
@@ -154,8 +140,6 @@ class RouteHandler extends React.Component {
       _ColdStorageInstance: cold_instance,
       _GovInstance: govInstance,
       _FarmerInstance: farmerInstance,
-      _web3: web3,
-      _account: account,
       _coldStorageDetails: coldStorageDetails,
       _coldStorageIDs: coldStorageIDs,
       _uneligibleFarmers: _uneligibleFarmers,
@@ -163,9 +147,9 @@ class RouteHandler extends React.Component {
     };
 
     return obj;
-  }
+  };
 
-  async getFarmerArray() {
+  const getFarmerArray = async () => {
     const deployedNetwork = FarmerContract.networks[networkId];
 
     const instance = new web3.eth.Contract(
@@ -176,168 +160,159 @@ class RouteHandler extends React.Component {
     let arr = await instance.methods.getFarmers().call();
 
     return arr;
-  }
+  };
 
-  componentWillMount() {
-    this.getGeneralDetails().then(() => {
-      if (this.props.request === "ManageContracts") {
-        this.getFarmerArray().then((result) => {
-          this.setState({ data: result });
+  useEffect(() => {
+    const initialize = async () => {
+      await getRole();
+      console.log("Got role: ");
+      console.log(roleId);
 
-          if (this.state.data != undefined) this.setState({ loading: false });
-        });
-      } else if (this.isFarmer() && this.props.request === "FarmerProfile") {
-        this.getFarmerDetails().then((result) => {
-          this.setState({ data: result });
-
-          if (this.state.data != undefined) this.setState({ loading: false });
-        });
+      if (request === "ManageContracts") {
+        if (data == undefined) {
+          var result = await getFarmerArray();
+          console.log(result);
+          setData(result);
+        } else setLoading(false);
+      } else if (isFarmer() && request === "FarmerProfile") {
+        if (data == undefined) {
+          var result = await getFarmerDetails();
+          console.log(result);
+          setData(result);
+        } else {
+          console.log("Farmer set it");
+          setLoading(false);
+        }
+      } else if (isGovernmentOfficial() && request === "OfficialProfile") {
+        if (data == undefined) {
+          var result = await getGovernmentOfficialDetails();
+          console.log(result);
+          setData(result);
+        } else setLoading(false);
       } else if (
-        this.isGovernmentOfficial() &&
-        this.props.request === "OfficialProfile"
+        (isGovernmentOfficial() || isAdmin()) &&
+        request === "AllActions"
       ) {
-        this.getGovernmentOfficialDetails().then((result) => {
-          this.setState({ data: result });
-
-          if (this.state.data != undefined) this.setState({ loading: false });
-        });
-      } else if (
-        (this.isGovernmentOfficial() || this.isAdmin()) &&
-        this.props.request === "AllActions"
-      ) {
-        this.getGovernmentOfficialDetails().then((result) => {
-          this.setState({ data: result });
-
-          if (this.state.data != undefined) this.setState({ loading: false });
-        });
-      } else {
-        this.setState({ loading: false });
+        if (data == undefined) {
+          var result = await getGovernmentOfficialDetails();
+          console.log(result);
+          setData(result);
+        } else setLoading(false);
+      } else if (roleId != undefined) {
+        setLoading(false);
       }
-    });
-  }
+    };
 
-  isFarmer() {
-    if (this.state.roleId == 1 || this.state.roleId == 3) return true;
+    initialize();
+  }, [roleId, data]);
+
+  const isFarmer = () => {
+    if (roleId == 1 || roleId == 3) return true;
     return false;
-  }
+  };
 
-  isGovernmentOfficial() {
-    if (this.state.roleId == 2 || this.state.roleId == 3) return true;
+  const isGovernmentOfficial = () => {
+    if (roleId == 2 || roleId == 3) return true;
     return false;
-  }
+  };
 
-  isAdmin() {
-    if (this.state.roleId == 3) return true;
+  const isAdmin = () => {
+    if (roleId == 3) return true;
     return false;
-  }
+  };
 
-  isLoading() {
-    if (this.state.loading === true) return true;
-    return false;
-  }
-
-  render() {
-    if (this.props.request === "FarmerProfile") {
-      if (this.isLoading()) {
-        return <h1>Loading</h1>;
+  if (request === "FarmerProfile") {
+    console.log(loading);
+    if (loading) {
+      return <h1>Loading</h1>;
+    } else {
+      if (isFarmer()) {
+        return (
+          <FarmerProfile
+            name={data._details._details._name}
+            stateOfResidence={data._details._stateOfResidence}
+            landOwned={data._details._details._landOwned}
+            gender={data._details._details._gender}
+            policyDescriptions={data._policyDescriptions._policyDescriptions}
+          />
+        );
       } else {
-        if (this.isFarmer() == true) {
-          return (
-            <FarmerProfile
-              FarmerInstance={this.state.data._FarmerInstance.instance}
-              web3={this.state.data._web3.web3}
-              account={this.state.data._account.account}
-              name={this.state.data._details._details._name}
-              stateOfResidence={
-                this.state.data._details._details._stateOfResidence
-              }
-              landOwned={this.state.data._details._details._landOwned}
-              gender={this.state.data._details._details._gender}
-              policyDescriptions={
-                this.state.data._policyDescriptions._policyDescriptions
-              }
-            />
-          );
-        } else {
-          return (
-            <div>
-              <h2>Not authenticated</h2>
-              <a href="/">Home</a>
-            </div>
-          );
-        }
+        return (
+          <div>
+            <h2>Not authenticated</h2>
+            <a href="/">Home</a>
+          </div>
+        );
       }
-    } else if (this.props.request === "OfficialProfile") {
-      if (this.isLoading()) {
-        return <h1>Loading</h1>;
+    }
+  } else if (request === "OfficialProfile") {
+    if (loading) {
+      return <h1>Loading</h1>;
+    } else {
+      if (isGovernmentOfficial()) {
+        return (
+          <OfficialProfile
+            account={data._account}
+            coldStorageInstance={data._ColdStorageInstance}
+            coldStorageIDs={data._coldStorageIDs}
+            coldStorageDetails={data._coldStorageDetails}
+          />
+        );
       } else {
-        if (this.isGovernmentOfficial() == true) {
-          return (
-            <OfficialProfile
-              account={this.state.data._account}
-              coldStorageInstance={this.state.data._ColdStorageInstance}
-              coldStorageIDs={this.state.data._coldStorageIDs}
-              coldStorageDetails={this.state.data._coldStorageDetails}
-            />
-          );
-        } else {
-          return (
-            <div>
-              <h2>Not authenticated</h2>
-              <a href="/">Home</a>
-            </div>
-          );
-        }
+        return (
+          <div>
+            <h2>Not authenticated</h2>
+            <a href="/">Home</a>
+          </div>
+        );
       }
-    } else if (this.props.request === "Login") {
-      return <Login roleID={this.state.roleId} />;
-    } else if (this.props.request === "ManageContracts") {
-      if (this.isLoading()) {
-        return <h1>Loading</h1>;
+    }
+  } else if (request === "Login") {
+    return <Login roleID={roleId} />;
+  } else if (request === "ManageContracts") {
+    if (loading) {
+      return <h1>Loading</h1>;
+    } else {
+      if (isGovernmentOfficial()) {
+        return (
+          <ManageContracts
+            account={account}
+            web3={web3}
+            farmerAccounts={data}
+          />
+        );
       } else {
-        if (this.isGovernmentOfficial()) {
-          return (
-            <ManageContracts
-              account={account}
-              web3={web3}
-              farmerAccounts={this.state.data}
-            />
-          );
-        } else {
-          return (
-            <div>
-              <h2>Not authenticated</h2>
-              <a href="/">Home</a>
-            </div>
-          );
-        }
+        return (
+          <div>
+            <h2>Not authenticated</h2>
+            <a href="/">Home</a>
+          </div>
+        );
       }
-    } else if (this.props.request === "AllActions") {
-      if (this.isLoading()) {
-        return <h1>Loading</h1>;
+    }
+  } else if (request === "AllActions") {
+    if (loading) {
+      return <h1>Loading</h1>;
+    } else {
+      if (isGovernmentOfficial() || isAdmin()) {
+        console.log(data);
+        return (
+          <AllActions
+            account={account}
+            uneligibleFarmers={data._uneligibleFarmers}
+            farmerInstance={data._FarmerInstance}
+            govInstance={data._GovInstance}
+            uneligibleOfficials={data._uneligibleOfficials}
+          />
+        );
       } else {
-        if (this.isGovernmentOfficial() || this.isAdmin()) {
-          console.log(this.state.data);
-          return (
-            <AllActions
-              account={account}
-              uneligibleFarmers={this.state.data._uneligibleFarmers}
-              farmerInstance={this.state.data._FarmerInstance}
-              govInstance={this.state.data._GovInstance}
-              uneligibleOfficials={this.state.data._uneligibleOfficials}
-            />
-          );
-        } else {
-          return (
-            <div>
-              <h2>Not authenticated</h2>
-              <a href="/">Home</a>
-            </div>
-          );
-        }
+        return (
+          <div>
+            <h2>Not authenticated</h2>
+            <a href="/">Home</a>
+          </div>
+        );
       }
     }
   }
-}
-
-export default RouteHandler;
+};

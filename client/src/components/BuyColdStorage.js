@@ -10,14 +10,20 @@ import { ApprovedStorages } from "./ApprovedStorages";
 import { OwnStorages } from "./OwnStorages";
 import { RentedStorages } from "./RentedStorages";
 
+import { selectAccount, selectWeb3 } from "../redux/account/accountSlice";
+import { useSelector } from "react-redux";
+
 window.ethereum.on("accountsChanged", () => {
   window.location.reload();
 });
 
 export const BuyColdStorage = () => {
+  const account = useSelector(selectAccount);
+  const web3 = useSelector(selectWeb3);
+
   const [coldStorageInstance, setColdStorageInstance] = useState();
-  const [account, setAccount] = useState(null);
-  const [web3, setWeb3] = useState(null);
+  //const [account, setAccount] = useState(null);
+  //const [web3, setWeb3] = useState(null);
   const [coldStorageIDs, setColdStorageIDs] = useState([]);
   const [coldStorageDetails, setColdStorageDetails] = useState([]);
   const [requestedIDs, setRequestedIDs] = useState([]);
@@ -32,23 +38,24 @@ export const BuyColdStorage = () => {
   const [viewToShow, setViewToShow] = useState(0);
 
   useEffect(() => {
+    //let mounted = true;
     const initialize = async () => {
-      //Refresh page only once
-      if (!window.location.hash) {
-        window.location = window.location + "#loaded";
-        window.location.reload();
-      }
+      // //Refresh page only once
+      // if (!window.location.hash) {
+      //   window.location = window.location + "#loaded";
+      //   window.location.reload();
+      // }
       try {
         // Get network provider and web3 instance.
-        const web_3 = await getWeb3();
+        //const web_3 = await getWeb3();
 
         // Use web3 to get the user's accounts.
-        const accounts = await web_3.eth.getAccounts();
+        //const accounts = await web_3.eth.getAccounts();
 
         // Get the contract instance.
-        const networkId = await web_3.eth.net.getId();
+        const networkId = await web3.eth.net.getId();
         const deployedNetwork = ColdStorageContract.networks[networkId];
-        const instance = new web_3.eth.Contract(
+        const instance = new web3.eth.Contract(
           ColdStorageContract.abi,
           deployedNetwork && deployedNetwork.address
         );
@@ -66,7 +73,7 @@ export const BuyColdStorage = () => {
 
         //getting the requested IDs and storages
         var _requestedIDs = await instance.methods
-          .getCSrequested(accounts[0])
+          .getCSrequested(account)
           .call();
 
         for (let i = 0; i < _requestedIDs.length; i++) {
@@ -79,9 +86,7 @@ export const BuyColdStorage = () => {
         }
 
         //getting the approved IDs and storages
-        var _approvedIDs = await instance.methods
-          .getCSapproved(accounts[0])
-          .call();
+        var _approvedIDs = await instance.methods.getCSapproved(account).call();
 
         for (let i = 0; i < _approvedIDs.length; i++) {
           if (_approvedIDs[i] != 0) {
@@ -94,7 +99,7 @@ export const BuyColdStorage = () => {
 
         //getting the rented IDs and storages
         var _rentedIDs = await instance.methods
-          .getRentedStorages(accounts[0])
+          .getRentedStorages(account)
           .call();
 
         for (let i = 0; i < _rentedIDs.length; i++) {
@@ -107,8 +112,8 @@ export const BuyColdStorage = () => {
         }
 
         setColdStorageInstance(instance);
-        setAccount(accounts[0]);
-        setWeb3(web_3);
+        //setAccount(accounts[0]);
+        //setWeb3(web_3);
         setColdStorageIDs(_coldStorageIDs);
         setRequestedIDs(_requestedIDs);
         setApprovedIDs(_approvedIDs);
@@ -122,7 +127,9 @@ export const BuyColdStorage = () => {
       }
     };
     initialize();
-  });
+
+    //return () => (mounted = false);
+  }, []);
 
   return (
     <div>

@@ -4,31 +4,37 @@ import "../App.css";
 import getWeb3 from "../getWeb3";
 import FarmerContract from "../contracts/FarmerContract.json";
 
+import { selectAccount, selectWeb3 } from "../redux/account/accountSlice";
+import { useSelector } from "react-redux";
+
 window.ethereum.on("accountsChanged", () => {
   window.location.reload();
 });
 
 export const FarmerPage = () => {
+  const account = useSelector(selectAccount);
+  const web3 = useSelector(selectWeb3);
+
   const [farmerInstance, setFarmerInstance] = useState();
-  const [account, setAccount] = useState(null);
+  //const [account, setAccount] = useState(null);
   const [name, setName] = useState("");
   const [stateOfResidence, setStateOfResidence] = useState("");
   const [landOwned, setLandOwned] = useState(0);
   const [gender, setGender] = useState("");
 
   useEffect(() => {
-    //Refresh page only once
-    if (!window.location.hash) {
-      window.location = window.location + "#loaded";
-      window.location.reload();
-    }
+    // //Refresh page only once
+    // if (!window.location.hash) {
+    //   window.location = window.location + "#loaded";
+    //   window.location.reload();
+    // }
     const initialize = async () => {
       try {
         // Get network provider and web3 instance.
-        const web3 = await getWeb3();
+        //const web3 = await getWeb3();
 
         // Use web3 to get the user's accounts.
-        const accounts = await web3.eth.getAccounts();
+        //const accounts = await web3.eth.getAccounts();
 
         // Get the contract instance.
         const networkId = await web3.eth.net.getId();
@@ -42,7 +48,6 @@ export const FarmerPage = () => {
         // example of interacting with the contract's methods.
 
         setFarmerInstance(instance);
-        setAccount(accounts[0]);
       } catch (error) {
         // Catch any errors for any of the above operations.
         alert(
